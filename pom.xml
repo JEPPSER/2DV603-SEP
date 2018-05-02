@@ -1,8 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>MongoDemo</groupId>
-  <artifactId>MongoDemo</artifactId>
+  <groupId>2DV603-SEP</groupId>
+  <artifactId>2DV603-SEP</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <name>2DV603-SEP</name>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
