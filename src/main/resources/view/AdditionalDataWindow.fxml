@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="350.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+   <children>
+      <VBox>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spouse" />
+            <TextField fx:id="spouseTextField" />
+         </children>
+      </VBox>
+      <VBox>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Children" />
+            <TextArea fx:id="childrenTextArea" prefHeight="100.0" />
+         </children>
+      </VBox>
+      <HBox spacing="150.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone" />
+            <TextField fx:id="phoneTextField" />
+         </children>
+      </HBox>
+      <HBox spacing="147.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mobile" />
+            <TextField fx:id="mobileTextField" alignment="BOTTOM_LEFT" />
+         </children>
+      </HBox>
+      <HBox spacing="166.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fax" />
+            <TextField fx:id="faxTextField" />
+         </children>
+      </HBox>
+      <HBox spacing="150.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail" />
+            <TextField fx:id="emailTextField" />
+         </children>
+      </HBox>
+      <HBox spacing="10.0">
+         <children>
+            <RadioButton fx:id="privateRadioButton" mnemonicParsing="false" text="Private">
+               <toggleGroup>
+                  <ToggleGroup fx:id="Group1" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="businessRadioButton" mnemonicParsing="false" text="Business" toggleGroup="$Group1" />
+         </children>
+      </HBox>
+      <HBox spacing="100.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Favourite Room" />
+            <TextField fx:id="favouriteRoomTextField" />
+         </children>
+      </HBox>
+      <HBox spacing="10.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Smoker" />
+            <RadioButton fx:id="smokerYesRadioButton" mnemonicParsing="false" text="Yes">
+               <toggleGroup>
+                  <ToggleGroup fx:id="Group2" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="smokerNoRadioButton" mnemonicParsing="false" text="No" toggleGroup="$Group2" />
+         </children>
+      </HBox>
+      <HBox spacing="10.0">
+         <children>
+            <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel" />
+            <Button fx:id="okButton" mnemonicParsing="false" text="OK" />
+         </children>
+         <padding>
+            <Insets left="235.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>

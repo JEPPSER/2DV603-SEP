@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="550.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+         <children>
+            <VBox fillWidth="false" spacing="10.0">
+               <children>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Button fx:id="guestSearchButton" mnemonicParsing="false" text="Search" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="15.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Company" />
+                        <TextField fx:id="companyTextField" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Text>
+                        <TextField fx:id="lastNameTextField" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="9.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
+                        <TextField fx:id="firstNameTextField" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="24.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
+                        <TextArea fx:id="addressTextField" prefHeight="50.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0">
+                     <children>
+                        <RadioButton fx:id="privateRadioButton" mnemonicParsing="false" text="Private">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="Group" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton fx:id="businessRadioButton" mnemonicParsing="false" text="Business" toggleGroup="$Group" />
+                     </children>
+                     <padding>
+                        <Insets left="70.0" />
+                     </padding>
+                  </HBox>
+                  <HBox spacing="23.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birthday" />
+                        <DatePicker fx:id="birthdayDatePicker" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Citizenship" />
+                        <TextField fx:id="citizenshipTextField" />
+                     </children>
+                  </HBox>
+                  <Button fx:id="addDataButton" mnemonicParsing="false" text="Add. Data" />
+                  <HBox spacing="10.0">
+                     <children>
+                        <Button fx:id="deleteGuestButton" mnemonicParsing="false" text="Delete" />
+                        <Button fx:id="clearGuestFieldsButton" mnemonicParsing="false" text="Clear Fields" />
+                        <Button fx:id="saveGuestButton" mnemonicParsing="false" text="Save" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="10.0" top="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reservations" />
+            <ListView fx:id="reservationsListView" prefHeight="80.0" prefWidth="250.0" />
+         </children>
+         <padding>
+            <Insets top="30.0" />
+         </padding>
+      </VBox>
+   </children>
+</HBox>
