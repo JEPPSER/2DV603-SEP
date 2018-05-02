@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linnaeushotel.controller.MainWindowController">
    <children>
       <Button id="guestManagementButton" fx:id="guestManagementButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Guest Management" />
       <Button id="reservationManagementButton" fx:id="reservationManagementButton" mnemonicParsing="false" text="Reservation Management" />

@@ -8,8 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import linnaeushotel.controller.LinnaeusHotelController;
+import linnaeushotel.controller.MainWindowController;
 
 /**
  * Singleton that manages the loading and changing of a stage.
@@ -41,7 +43,9 @@ public class StageManager {
 	 */
 	private Map<String, LinnaeusHotelController> controllers = new HashMap<>();
 	
-	
+	public MainWindowController getMainWindowController(){
+		return (MainWindowController) controllers.get(LinnaeusHotelController.MAIN_WINDOW);
+	}
 	
 	/**
 	 * Manages the setting up and loading of the main window.
@@ -53,12 +57,10 @@ public class StageManager {
 		mainStage = primaryStage;
 		mainStage.setTitle("LinnaeusHotel");
 		
-		//TODO: Use the root layout here instead of BorderPane. - Oskar Mendel 2018-05-01
-		Scene mainScene = new Scene(new BorderPane());
+		VBox mainWindowController = (VBox) loadLayout(LinnaeusHotelController.MAIN_WINDOW);
+		Scene mainScene = new Scene(mainWindowController);
 		
 		mainStage.setScene(mainScene);
-		mainStage.setMinWidth(800);
-		mainStage.setMinHeight(600);
 		mainStage.show();
 	}
 	
