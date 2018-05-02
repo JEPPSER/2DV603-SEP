@@ -4,4 +4,13 @@
   <artifactId>2DV603-SEP</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>2DV603-SEP</name>
+  
+  <dependencies>
+    <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongo-java-driver</artifactId>
+        <version>3.7.0</version>
+    </dependency>
+</dependencies>
+  
 </project>
