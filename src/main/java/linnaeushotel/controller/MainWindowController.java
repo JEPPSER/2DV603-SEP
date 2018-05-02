@@ -34,7 +34,7 @@ public class MainWindowController implements LinnaeusHotelController {
 				guestWindowController = loader.<GuestWindowController>getController();
 				//TODO: Initialize guest window's models. - Oskar Mendel 2018-05-03
 				
-				//TODO: Make this button invalid while window is alove. - Oskar Mendel 2018-05-03
+				//TODO: Make this button invalid while window is alive. - Oskar Mendel 2018-05-03
 				stage.show();
 			} catch (IOException e) {
 				e.printStackTrace();
