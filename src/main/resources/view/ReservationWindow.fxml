@@ -8,7 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="1015.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="1015.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linnaeushotel.controller.ReservationWindowController">
    <children>
       <HBox spacing="10.0">
          <children>
@@ -112,9 +112,9 @@
             <Insets right="10.0" />
          </padding>
       </HBox>
-      <ScrollPane prefHeight="539.0" prefWidth="1015.0">
+      <ScrollPane prefHeight="539.0">
          <content>
-            <GridPane fx:id="reservationsGridPane" gridLinesVisible="true" prefWidth="1000.0">
+            <GridPane fx:id="reservationsGridPane" gridLinesVisible="true">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>

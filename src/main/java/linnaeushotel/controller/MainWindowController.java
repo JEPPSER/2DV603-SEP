@@ -34,12 +34,17 @@ public class MainWindowController implements LinnaeusHotelController {
 		
 		reservationManagementButton.setOnAction(c -> {
 			Parent root;
+			ReservationWindowController reservationWindowController;
 			
 			try {
-				URI location = new File(RESERVATION_WINDOW).toURI();
+				URI location = new File("src/main/resources/" + RESERVATION_WINDOW).toURI();
 				root = FXMLLoader.load(location.toURL());
 				Stage stage = new Stage();
+				stage.setTitle("Reservation Management");
 				stage.setScene(new Scene(root));
+				
+				FXMLLoader loader = new FXMLLoader(location.toURL());
+				reservationWindowController = loader.<ReservationWindowController>getController();
 				stage.show();
 			} catch (IOException e) {
 				e.printStackTrace();
