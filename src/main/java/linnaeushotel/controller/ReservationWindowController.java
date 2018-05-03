@@ -19,7 +19,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import linnaeushotel.guest.Guest;
 import linnaeushotel.model.ReservationModel;
 import linnaeushotel.model.RoomModel;
 import linnaeushotel.reservation.Reservation;
@@ -50,9 +49,6 @@ public class ReservationWindowController implements LinnaeusHotelController {
 	@FXML public RadioButton quality3RadioButton;
 	@FXML public RadioButton quality4RadioButton;
 	@FXML public RadioButton quality5RadioButton;
-	
-	@FXML public RadioButton smokingRadioButton;
-	@FXML public RadioButton nonSmokingRadioButton;
 
 	@FXML public ToggleGroup Group;
 	@FXML public ToggleGroup Group2;
@@ -79,9 +75,6 @@ public class ReservationWindowController implements LinnaeusHotelController {
 	
 	private ReservationModel reservationModel = new ReservationModel();
 	private RoomModel roomModel = new RoomModel();
-	
-	private Room selectedRoom;
-	private Guest selectedGuest;
 
 	@FXML
 	public void initialize() {
@@ -140,57 +133,59 @@ public class ReservationWindowController implements LinnaeusHotelController {
 			setReservationOnClicked();
 		});
 		
-		chooseRoomButton.setOnAction(c -> {
-			LocalDate arrival = arrivalDatePicker.getValue();
-			LocalDate departure = departureDatePicker.getValue();
-			RoomType roomType = getSelectedRoomType();	
-			RoomQuality roomQuality = getSelectedRoomQuality();
-			Location location = getSelectedLocation();
-			boolean smoker = isSmoking();
-		});
-		
-		chooseGuestButton.setOnAction(c -> {
-			
-		});
-		
 		okButton.setOnAction(c -> {
 			LocalDate arrival = arrivalDatePicker.getValue();
 			LocalDate departure = departureDatePicker.getValue();
 			
-			double price;
-			
-			if(!isValidReservationInfo(arrival, departure)){			
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Error Dialog");
-				alert.setHeaderText("Reservation Error");
-				alert.setContentText("The reservatoin information was not sufficient!");
-				alert.showAndWait();
-			} else {
-				
-				price = Double.parseDouble(priceTextField.getText());
-				
-				//TODO: Implement choosing guest and room
-				
-//				Reservation r = new Reservation(arrival, departure, room1, 69);
+//			RoomType roomType1;
+//			RadioButton radioButton1 = (RadioButton) Group.getSelectedToggle();
+//			if(radioButton1.getText().equals("Single room")){
+//				roomType1 = RoomType.SINGLE_ROOM;
+//			} else if(radioButton1.getText().equals("Double room")){
+//				roomType1 = RoomType.DOUBLE_ROOM;
+//			} else if(radioButton1.getText().equals("Triple room")){
+//				roomType1 = RoomType.TRIPLE_ROOM;
+//			} else if(radioButton1.getText().equals("Four-bed room")){
+//				roomType1 = RoomType.FOUR_BED_ROOM;
+//			} else if(radioButton1.getText().equals("Appartment/Suite")){
+//				roomType1 = RoomType.APARTMENT_SUITE;
+//			}
 //			
-//				if(reservationModel.getReservations().size() == 0){
-//					reservationModel.getReservations().add(r);
-//				} else { 
-//					if(isReservationOverlapping(r)){
-//						Alert alert = new Alert(AlertType.ERROR);
-//						alert.setTitle("Error Dialog");
-//						alert.setHeaderText("Reservation Error");
-//						alert.setContentText("Reservations may not overlap with other reservations!");
-//						alert.showAndWait();		
-//					} else {
-//						reservationModel.getReservations().add(r);
-//					}
-//				}
+//			RoomQuality roomType2;
+//			RadioButton radioButton2 = (RadioButton) Group3.getSelectedToggle();
+//			if(radioButton2.getText().equals("Quality 1")){
+//				roomType2 = RoomQuality.QUALITY_ONE;
+//			} else if(radioButton2.getText().equals("Quality 2")){
+//				roomType2 = RoomQuality.QUALITY_TWO;
+//			} else if(radioButton2.getText().equals("Quality 3")){
+//				roomType2 = RoomQuality.QUALITY_THREE;
+//			} else if(radioButton2.getText().equals("Quality 4")){
+//				roomType2 = RoomQuality.QUALITY_FOUR;
+//			} else if(radioButton2.getText().equals("Quality 5")){
+//				roomType2 = RoomQuality.QUALITY_FIVE;
+//			}
 			
-				setColumns();
-				setRows();
-				setReservationOnClicked();
+			Location location = Location.VAXJO;
+			
+			Reservation r = new Reservation(arrival, departure, room1, 69);
+			
+			if(reservationModel.getReservations().size() == 0){
+				reservationModel.getReservations().add(r);
+			} else { 
+				if(isReservationOverlapping(r)){
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error Dialog");
+					alert.setHeaderText("Reservation Error");
+					alert.setContentText("Reservations may not overlap with other reservations!");
+					alert.showAndWait();		
+				} else {
+					reservationModel.getReservations().add(r);
+				}
 			}
+			
+			setColumns();
+			setRows();
+			setReservationOnClicked();
 		});
 	}
 
@@ -230,7 +225,7 @@ public class ReservationWindowController implements LinnaeusHotelController {
 						p.getChildren().add(t);
 					}
 
-					// Mark all reservations in the calendar.
+					// Mark the rooms that have reservations for every day.
 					for(int rIndex = 0; rIndex < reservationModel.getReservations().size(); rIndex++){
 						Reservation res = reservationModel.getReservations().get(rIndex);
 						if (res.getRoom().getRoomNumber() == roomNumber &&
@@ -256,7 +251,7 @@ public class ReservationWindowController implements LinnaeusHotelController {
 				if(day > 0 && room > 0){
 					int roomNumber = roomModel.getRooms().get(room - 1).getRoomNumber();
 					
-					// Check which reservation matches the node.
+					// Check which reservation that matches the node.
 					for(int rIndex = 0; rIndex < reservationModel.getReservations().size(); rIndex++){
 						Reservation res = reservationModel.getReservations().get(rIndex);
 						if (res.getRoom().getRoomNumber() == roomNumber &&
@@ -293,68 +288,6 @@ public class ReservationWindowController implements LinnaeusHotelController {
 			}
 		}
 		return isOverlapping;
-	}
-	
-	private boolean isValidReservationInfo(LocalDate arrival, LocalDate departure){
-		if(arrival == null || departure == null || selectedGuest == null || selectedRoom == null ||
-				!isValidPrice(priceTextField.getText()) || !arrival.isBefore(departure)){
-			return false;
-		}
-		return true;
-	}
-	
-	private boolean isSmoking(){
-		if(smokingRadioButton.isSelected()){
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	private RoomQuality getSelectedRoomQuality(){
-		RoomQuality roomQuality = null;
-		RadioButton radioButton2 = (RadioButton) Group3.getSelectedToggle();
-		if(radioButton2.getText().equals("Quality 1")){
-			roomQuality = RoomQuality.QUALITY_ONE;
-		} else if(radioButton2.getText().equals("Quality 2")){
-			roomQuality = RoomQuality.QUALITY_TWO;
-		} else if(radioButton2.getText().equals("Quality 3")){
-			roomQuality = RoomQuality.QUALITY_THREE;
-		} else if(radioButton2.getText().equals("Quality 4")){
-			roomQuality = RoomQuality.QUALITY_FOUR;
-		} else if(radioButton2.getText().equals("Quality 5")){
-			roomQuality = RoomQuality.QUALITY_FIVE;
-		}
-		return roomQuality;
-	}
-	
-	private RoomType getSelectedRoomType(){
-		RoomType roomType1 = null;
-		RadioButton radioButton1 = (RadioButton) Group.getSelectedToggle();
-		if(radioButton1.getText().equals("Single room")){
-			roomType1 = RoomType.SINGLE_ROOM;
-		} else if(radioButton1.getText().equals("Double room")){
-			roomType1 = RoomType.DOUBLE_ROOM;
-		} else if(radioButton1.getText().equals("Triple room")){
-			roomType1 = RoomType.TRIPLE_ROOM;
-		} else if(radioButton1.getText().equals("Four-bed room")){
-			roomType1 = RoomType.FOUR_BED_ROOM;
-		} else if(radioButton1.getText().equals("Appartment/Suite")){
-			roomType1 = RoomType.APARTMENT_SUITE;
-		}
-		return roomType1;
-	}
-	
-	private boolean isValidPrice(String string){
-		if(string.equals("")){
-			return false;
-		}
-		for(int i = 0; i < string.length(); i++){
-			if(!Character.isDigit(string.charAt(i))){
-				return false;
-			}
-		}
-		return true;
 	}
 
 	private int daysOfSelectedMonth() {
