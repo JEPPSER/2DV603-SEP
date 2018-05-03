@@ -18,6 +18,7 @@ public class Guest {
 	private String firstName;
 	private String spouse;
 	private String children;
+	private String citizenship;
 	
 	// Guest's private information
 	private String address;
@@ -45,6 +46,20 @@ public class Guest {
 	 */
 	public String getAddress() {
 		return address;
+	}
+
+	/**
+	 * @return the citizenship
+	 */
+	public String getCitizenship() {
+		return citizenship;
+	}
+
+	/**
+	 * @param citizenship the citizenship to set
+	 */
+	public void setCitizenship(String citizenship) {
+		this.citizenship = citizenship;
 	}
 
 	/**
