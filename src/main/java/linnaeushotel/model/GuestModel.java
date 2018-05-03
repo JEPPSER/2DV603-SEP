@@ -6,6 +6,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import linnaeushotel.DB_manager;
 import linnaeushotel.guest.Guest;
 
 /**
@@ -18,6 +19,12 @@ public class GuestModel {
 
 	private final ObjectProperty<Guest> currentGuest = new SimpleObjectProperty<>();
 	private final ObservableList<Guest> guestModel = FXCollections.observableArrayList();
+	
+	private final DB_manager db = new DB_manager();
+	
+	public GuestModel() {
+		guestModel.setAll(db.getGuests());
+	}
 	
 	public ObjectProperty<Guest> getCurrentGuest() {
 		return this.currentGuest;
@@ -33,5 +40,17 @@ public class GuestModel {
 	
 	public void setGuests(List<Guest> guestList) {
 		this.guestModel.setAll(guestList);
+	}
+	
+	public void addGuest(Guest g) {
+		db.insertGuest(g);
+	}
+	
+	public void updateGuest(Guest g) {
+		db.updateGuest(g);
+	}
+	
+	public void deleteGuest(Guest g) {
+		db.deleteGuest(g);
 	}
 }
