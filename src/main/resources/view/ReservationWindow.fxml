@@ -14,7 +14,7 @@
          <children>
             <VBox spacing="5.0">
                <children>
-                  <RadioButton fx:id="singleRoomRadioButton" mnemonicParsing="false" text="Single room">
+                  <RadioButton fx:id="singleRoomRadioButton" mnemonicParsing="false" selected="true" text="Single room">
                      <toggleGroup>
                         <ToggleGroup fx:id="Group" />
                      </toggleGroup>
@@ -28,7 +28,7 @@
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <RadioButton fx:id="quality1RadioButton" mnemonicParsing="false" text="Quality 1">
+                  <RadioButton fx:id="quality1RadioButton" mnemonicParsing="false" selected="true" text="Quality 1">
                      <toggleGroup>
                         <ToggleGroup fx:id="Group3" />
                      </toggleGroup>
@@ -37,6 +37,16 @@
                   <RadioButton fx:id="quality3RadioButton" mnemonicParsing="false" text="Quality 3" toggleGroup="$Group3" />
                   <RadioButton fx:id="quality4RadioButton" mnemonicParsing="false" text="Quality 4" toggleGroup="$Group3" />
                   <RadioButton fx:id="quality5RadioButton" mnemonicParsing="false" text="Quality 5" toggleGroup="$Group3" />
+               </children>
+            </VBox>
+            <VBox spacing="5.0">
+               <children>
+                  <RadioButton fx:id="smokingRadioButton" mnemonicParsing="false" selected="true" text="Smoking">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="Group4" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="nonSmokingRadioButton" mnemonicParsing="false" text="Non-smoking" toggleGroup="$Group4" />
                </children>
             </VBox>
             <VBox spacing="5.0">
