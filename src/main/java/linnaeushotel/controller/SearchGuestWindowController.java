@@ -31,6 +31,9 @@ public class SearchGuestWindowController implements LinnaeusHotelController {
 	@FXML
 	public void initialize() {
 		
+		/**
+		 * Defining how the guestsListView should display the guest objects within the list.
+		 */
 		guestsListView.setCellFactory(new Callback<ListView<Guest>, ListCell<Guest>>() {
 
 			@Override
@@ -52,18 +55,22 @@ public class SearchGuestWindowController implements LinnaeusHotelController {
 		});
 		
 		searchGuestButton.setOnAction(c -> {
-			guestsListView.getItems().setAll(this.guestModel.getGuests());
-			
 			if (!searchGuestTextField.getText().isEmpty()) {
 				ArrayList<Guest> guestList = new ArrayList<>();
 				
-				for (Guest g : guestsListView.getItems()) {
+				for (Guest g : guestModel.getGuests()) {
+					// For each guest in the guest model check if the name match the search keyword.
 					if (nameMatch(searchGuestTextField.getText(), g)) {
 						guestList.add(g);
 					}
 				}
+				
+				// Refresh the guest listview with all the found guests.
 				guestsListView.getItems().clear();
 				guestsListView.getItems().setAll(guestList);
+			} else {
+				// If search field was empty re-populate listview with content of the guest model.
+				guestsListView.getItems().setAll(guestModel.getGuests());
 			}
 		});
 		
