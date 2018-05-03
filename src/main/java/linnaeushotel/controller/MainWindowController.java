@@ -32,7 +32,6 @@ public class MainWindowController implements LinnaeusHotelController {
 				stage.setScene(new Scene(root));
 				
 				guestWindowController = loader.<GuestWindowController>getController();
-				//TODO: Initialize guest window's models. - Oskar Mendel 2018-05-03
 				
 				//TODO: Make this button invalid while window is alive. - Oskar Mendel 2018-05-03
 				stage.show();

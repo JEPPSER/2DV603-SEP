@@ -10,6 +10,12 @@ import javafx.stage.Stage;
 import linnaeushotel.guest.Guest;
 import linnaeushotel.model.GuestModel;
 
+/**
+ * 
+ * @author Oskar Mendel
+ * @version 0.00.00
+ * @name AdditionalDataWindowController.java
+ */
 public class AdditionalDataWindowController implements LinnaeusHotelController {
 	
 	@FXML public ToggleGroup Group1;

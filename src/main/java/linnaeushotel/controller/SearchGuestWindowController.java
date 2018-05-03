@@ -12,6 +12,12 @@ import javafx.util.Callback;
 import linnaeushotel.guest.Guest;
 import linnaeushotel.model.GuestModel;
 
+/**
+ * 
+ * @author Oskar Mendel
+ * @version 0.00.00
+ * @name SearchGuestWindowController.java
+ */
 public class SearchGuestWindowController implements LinnaeusHotelController {
 
 	@FXML public TextField searchGuestTextField;
@@ -67,7 +73,11 @@ public class SearchGuestWindowController implements LinnaeusHotelController {
 		});
 		
 		loadButton.setOnAction(c -> {
-			
+			if (this.guestsListView.getSelectionModel().getSelectedItem() != null) {
+				this.guestModel.setCurrentGuest(guestsListView.getSelectionModel().getSelectedItem());
+				Stage stage = (Stage) loadButton.getScene().getWindow();
+				stage.close();
+			}
 		});
 	}
 	
