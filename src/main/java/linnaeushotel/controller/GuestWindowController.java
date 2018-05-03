@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import linnaeushotel.guest.Guest;
+import linnaeushotel.model.GuestModel;
 import linnaeushotel.reservation.Reservation;
 
 public class GuestWindowController implements LinnaeusHotelController {
@@ -37,12 +38,12 @@ public class GuestWindowController implements LinnaeusHotelController {
 	@FXML public Button saveGuestButton;
 	@FXML public ListView<Reservation> reservationsListView;
 	
-	private Guest selectedGuest = new Guest();
+	private GuestModel guestModel;
 	private boolean guestSelected = false;
 	
 	@FXML
 	public void initialize() {
-		
+		this.initializeGuestModel(new GuestModel());
 		
 		guestSearchButton.setOnAction(c -> {
 			Parent root;
@@ -58,8 +59,8 @@ public class GuestWindowController implements LinnaeusHotelController {
 				stage.setScene(new Scene(root));
 				
 				searchGuestWindowController = loader.<SearchGuestWindowController>getController();
-				//TODO: Initialize guest window's models. - Oskar Mendel 2018-05-03
-				//TODO: Recieve data back from controller here and set guest & guestSelected.
+				searchGuestWindowController.initializeGuestModel(this.guestModel);
+				
 				
 				//TODO: Make this button invalid while window is alive. - Oskar Mendel 2018-05-03
 				stage.show();
@@ -86,8 +87,7 @@ public class GuestWindowController implements LinnaeusHotelController {
 				stage.setScene(new Scene(root));
 				
 				additionalDataWindowController = loader.<AdditionalDataWindowController>getController();
-				//TODO: Initialize guest window's models. - Oskar Mendel 2018-05-03
-				//TODO: send guest to the controller so that its modified here as well.
+				additionalDataWindowController.initializeGuestModel(this.guestModel);
 				
 				//TODO: Make this button invalid while window is alive. - Oskar Mendel 2018-05-03
 				stage.show();
@@ -104,21 +104,44 @@ public class GuestWindowController implements LinnaeusHotelController {
 				clearAll();
 			}
 			
-			selectedGuest = new Guest();
 		});
 		
 		clearGuestFieldsButton.setOnAction(c -> {
 			clearAll();
-			selectedGuest = new Guest();
 		});
 		
 		saveGuestButton.setOnAction(c -> {
 			if (guestSelected) {
+				setGuestData();
+				
 				//TODO: Update guest in database.
 			} else {
+				setGuestData();
+				
 				//TODO: Add new guest to database.
 			}
 		});
+	}
+	
+	private void setGuestData() {
+		Guest guest = this.guestModel.getCurrentGuest().get();
+		
+		if (guest == null) {
+			guest = new Guest();
+			this.guestModel.setCurrentGuest(guest);
+		}
+		
+		guest.setCompany(companyTextField.getText());
+		guest.setLastName(lastNameTextField.getText());
+		guest.setFirstName(firstNameTextField.getText());
+		guest.setAddress(addressTextField.getText());
+		
+		
+		privateRadioButton.setSelected(false);
+		businessRadioButton.setSelected(false);
+		
+		guest.setBirthday(birthdayDatePicker.getValue());
+		guest.setCitizenship(citizenshipTextField.getText());
 	}
 	
 	private void clearAll() {
@@ -131,9 +154,17 @@ public class GuestWindowController implements LinnaeusHotelController {
 		birthdayDatePicker.setValue(null);
 		citizenshipTextField.clear();
 		reservationsListView.getItems().clear();
-		selectedGuest = null;
+		this.guestModel.setCurrentGuest(null);
 		
 		deleteGuestButton.setDisable(true);
 		guestSelected = false;
+	}
+	
+	public void initializeGuestModel(GuestModel guestModel) {
+		if (this.guestModel != null) {
+			throw new IllegalStateException("Model can only be initialize once");
+		}
+		
+		this.guestModel = guestModel;
 	}
 }
