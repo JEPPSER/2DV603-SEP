@@ -18,20 +18,14 @@ public class Guest {
 	private String firstName;
 	private String spouse;
 	private String children;
+	private String citizenship;
 	
 	// Guest's private information
-	private String privateAddress;
-	private String privatePhone;
-	private String privateMobile;
-	private String privateFax;
-	private String privateEmail;
-	
-	// Guest's business information
-	private String businessAddress;
-	private String businessPhone;
-	private String businessMobile;
-	private String businessFax;
-	private String businessEmail;
+	private String address;
+	private String phone;
+	private String mobile;
+	private String fax;
+	private String email;
 	
 	private String favouriteRoom;
 	private boolean smoker;
@@ -45,6 +39,90 @@ public class Guest {
 	//TODO: Return actual bill and not void.
 	public void getBill() {
 		
+	}
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @return the citizenship
+	 */
+	public String getCitizenship() {
+		return citizenship;
+	}
+
+	/**
+	 * @param citizenship the citizenship to set
+	 */
+	public void setCitizenship(String citizenship) {
+		this.citizenship = citizenship;
+	}
+
+	/**
+	 * @return the phone
+	 */
+	public String getPhone() {
+		return phone;
+	}
+
+	/**
+	 * @return the mobile
+	 */
+	public String getMobile() {
+		return mobile;
+	}
+
+	/**
+	 * @return the fax
+	 */
+	public String getFax() {
+		return fax;
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	/**
+	 * @param phone the phone to set
+	 */
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	/**
+	 * @param mobile the mobile to set
+	 */
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	/**
+	 * @param fax the fax to set
+	 */
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	/**
@@ -80,76 +158,6 @@ public class Guest {
 	 */
 	public String getChildren() {
 		return children;
-	}
-
-	/**
-	 * @return the privateAddress
-	 */
-	public String getPrivateAddress() {
-		return privateAddress;
-	}
-
-	/**
-	 * @return the privatePhone
-	 */
-	public String getPrivatePhone() {
-		return privatePhone;
-	}
-
-	/**
-	 * @return the privateMobile
-	 */
-	public String getPrivateMobile() {
-		return privateMobile;
-	}
-
-	/**
-	 * @return the privateFax
-	 */
-	public String getPrivateFax() {
-		return privateFax;
-	}
-
-	/**
-	 * @return the privateEmail
-	 */
-	public String getPrivateEmail() {
-		return privateEmail;
-	}
-
-	/**
-	 * @return the businessAddress
-	 */
-	public String getBusinessAddress() {
-		return businessAddress;
-	}
-
-	/**
-	 * @return the businessPhone
-	 */
-	public String getBusinessPhone() {
-		return businessPhone;
-	}
-
-	/**
-	 * @return the businessMobile
-	 */
-	public String getBusinessMobile() {
-		return businessMobile;
-	}
-
-	/**
-	 * @return the businessFax
-	 */
-	public String getBusinessFax() {
-		return businessFax;
-	}
-
-	/**
-	 * @return the businessEmail
-	 */
-	public String getBusinessEmail() {
-		return businessEmail;
 	}
 
 	/**
@@ -213,76 +221,6 @@ public class Guest {
 	 */
 	public void setChildren(String children) {
 		this.children = children;
-	}
-
-	/**
-	 * @param privateAddress the privateAddress to set
-	 */
-	public void setPrivateAddress(String privateAddress) {
-		this.privateAddress = privateAddress;
-	}
-
-	/**
-	 * @param privatePhone the privatePhone to set
-	 */
-	public void setPrivatePhone(String privatePhone) {
-		this.privatePhone = privatePhone;
-	}
-
-	/**
-	 * @param privateMobile the privateMobile to set
-	 */
-	public void setPrivateMobile(String privateMobile) {
-		this.privateMobile = privateMobile;
-	}
-
-	/**
-	 * @param privateFax the privateFax to set
-	 */
-	public void setPrivateFax(String privateFax) {
-		this.privateFax = privateFax;
-	}
-
-	/**
-	 * @param privateEmail the privateEmail to set
-	 */
-	public void setPrivateEmail(String privateEmail) {
-		this.privateEmail = privateEmail;
-	}
-
-	/**
-	 * @param businessAddress the businessAddress to set
-	 */
-	public void setBusinessAddress(String businessAddress) {
-		this.businessAddress = businessAddress;
-	}
-
-	/**
-	 * @param businessPhone the businessPhone to set
-	 */
-	public void setBusinessPhone(String businessPhone) {
-		this.businessPhone = businessPhone;
-	}
-
-	/**
-	 * @param businessMobile the businessMobile to set
-	 */
-	public void setBusinessMobile(String businessMobile) {
-		this.businessMobile = businessMobile;
-	}
-
-	/**
-	 * @param businessFax the businessFax to set
-	 */
-	public void setBusinessFax(String businessFax) {
-		this.businessFax = businessFax;
-	}
-
-	/**
-	 * @param businessEmail the businessEmail to set
-	 */
-	public void setBusinessEmail(String businessEmail) {
-		this.businessEmail = businessEmail;
 	}
 
 	/**
