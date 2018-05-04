@@ -1,10 +1,16 @@
 package linnaeushotel.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -19,7 +25,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import linnaeushotel.guest.Guest;
+import linnaeushotel.model.GuestModel;
 import linnaeushotel.model.ReservationModel;
 import linnaeushotel.model.RoomModel;
 import linnaeushotel.reservation.Reservation;
@@ -50,7 +58,7 @@ public class ReservationWindowController implements LinnaeusHotelController {
 	@FXML public RadioButton quality3RadioButton;
 	@FXML public RadioButton quality4RadioButton;
 	@FXML public RadioButton quality5RadioButton;
-	
+
 	@FXML public RadioButton smokingRadioButton;
 	@FXML public RadioButton nonSmokingRadioButton;
 
@@ -71,23 +79,21 @@ public class ReservationWindowController implements LinnaeusHotelController {
 
 	@FXML public RadioButton vaxjoRadioButton;
 	@FXML public RadioButton kalmarRadioButton;
-
+	
 	@FXML public MenuButton monthMenuButton;
 	@FXML public MenuButton yearMenuButton;
 	@FXML public Button showButton;
 	@FXML public GridPane reservationsGridPane;
-	
+
 	private ReservationModel reservationModel = new ReservationModel();
 	private RoomModel roomModel = new RoomModel();
-	
-	private Room selectedRoom;
-	private Guest selectedGuest;
+	private GuestModel guestModel = new GuestModel();
 
 	@FXML
 	public void initialize() {
-		
-//		initializeReservationModel(reservationModel);
-//		initializeRoomModel(roomModel);
+
+		// initializeReservationModel(reservationModel);
+		// initializeRoomModel(roomModel);
 		Room room1 = new Room(5, RoomType.SINGLE_ROOM, RoomQuality.QUALITY_ONE, Location.VAXJO, false, false);
 		Room room2 = new Room(8, RoomType.SINGLE_ROOM, RoomQuality.QUALITY_ONE, Location.VAXJO, false, false);
 		Room room3 = new Room(3, RoomType.SINGLE_ROOM, RoomQuality.QUALITY_ONE, Location.KALMAR, false, false);
@@ -124,10 +130,10 @@ public class ReservationWindowController implements LinnaeusHotelController {
 			arrivalDatePicker.setValue(null);
 			departureDatePicker.setValue(null);
 			chooseGuestTextField.setText("");
+			guestModel.getCurrentGuest().set(null);
 			chooseRoomTextField.setText("");
+			roomModel.getCurrentRoom().set(null);
 			priceTextField.setText("");
-			Group.getSelectedToggle().setSelected(false);
-			Group3.getSelectedToggle().setSelected(false);
 		});
 
 		setColumns();
@@ -139,54 +145,93 @@ public class ReservationWindowController implements LinnaeusHotelController {
 			setRows();
 			setReservationOnClicked();
 		});
-		
+
 		chooseRoomButton.setOnAction(c -> {
 			LocalDate arrival = arrivalDatePicker.getValue();
 			LocalDate departure = departureDatePicker.getValue();
-			RoomType roomType = getSelectedRoomType();	
+			RoomType roomType = getSelectedRoomType();
 			RoomQuality roomQuality = getSelectedRoomQuality();
-			Location location = getSelectedLocation();
 			boolean smoker = isSmoking();
-		});
-		
-		chooseGuestButton.setOnAction(c -> {
 			
+			if(arrival != null && departure != null && arrival.isBefore(departure)){
+				Parent root;
+				URI locationURI = new File("src/main/resources/" + SELECT_ROOM_WINDOW).toURI();
+				SelectRoomWindowController selectRoomWindowController;
+
+				try {
+					FXMLLoader loader = new FXMLLoader(locationURI.toURL());
+					root = loader.load();
+
+					Stage stage = new Stage();
+					stage.setTitle("Select Room");
+					stage.setScene(new Scene(root));
+					
+					roomModel.setArrival(arrival);
+					roomModel.setDeparture(departure);
+					roomModel.setRoomType(roomType);
+					roomModel.setRoomQuality(roomQuality);
+					roomModel.setSmoker(smoker);
+
+					selectRoomWindowController = loader.<SelectRoomWindowController>getController();
+					selectRoomWindowController.initializeRoomModel(this.roomModel);
+					selectRoomWindowController.initializeReservationModel(this.reservationModel);
+					stage.showAndWait();
+					if(roomModel.getCurrentRoom().get() != null){
+						Room r = roomModel.getCurrentRoom().get();
+						chooseRoomTextField.setText(String.valueOf(r.getRoomNumber()) + ", " + r.getLocation());
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error Dialog");
+				alert.setHeaderText("Room Selection Error");
+				alert.setContentText("Arrival and Departure must be valid!");
+				alert.showAndWait();
+			}
 		});
-		
+
+		chooseGuestButton.setOnAction(c -> {
+
+		});
+
 		okButton.setOnAction(c -> {
 			LocalDate arrival = arrivalDatePicker.getValue();
 			LocalDate departure = departureDatePicker.getValue();
-			
+
 			double price;
-			
-			if(!isValidReservationInfo(arrival, departure)){			
+
+			if (!isValidReservationInfo(arrival, departure)) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Error Dialog");
 				alert.setHeaderText("Reservation Error");
 				alert.setContentText("The reservatoin information was not sufficient!");
 				alert.showAndWait();
 			} else {
-				
+
 				price = Double.parseDouble(priceTextField.getText());
-				
-				//TODO: Implement choosing guest and room
-				
-//				Reservation r = new Reservation(arrival, departure, room1, 69);
-//			
-//				if(reservationModel.getReservations().size() == 0){
-//					reservationModel.getReservations().add(r);
-//				} else { 
-//					if(isReservationOverlapping(r)){
-//						Alert alert = new Alert(AlertType.ERROR);
-//						alert.setTitle("Error Dialog");
-//						alert.setHeaderText("Reservation Error");
-//						alert.setContentText("Reservations may not overlap with other reservations!");
-//						alert.showAndWait();		
-//					} else {
-//						reservationModel.getReservations().add(r);
-//					}
-//				}
-			
+
+				// TODO: Implement choosing guest and room
+
+				// Reservation r = new Reservation(arrival, departure, room1,
+				// 69);
+				//
+				// if(reservationModel.getReservations().size() == 0){
+				// reservationModel.getReservations().add(r);
+				// } else {
+				// if(isReservationOverlapping(r)){
+				// Alert alert = new Alert(AlertType.ERROR);
+				// alert.setTitle("Error Dialog");
+				// alert.setHeaderText("Reservation Error");
+				// alert.setContentText("Reservations may not overlap with other
+				// reservations!");
+				// alert.showAndWait();
+				// } else {
+				// reservationModel.getReservations().add(r);
+				// }
+				// }
+
 				setColumns();
 				setRows();
 				setReservationOnClicked();
@@ -215,7 +260,7 @@ public class ReservationWindowController implements LinnaeusHotelController {
 
 	private void setRows() {
 		for (int i = 0; i < roomModel.getRooms().size(); i++) {
-			if(roomModel.getRooms().get(i).getLocation() == getSelectedLocation()){
+			if (roomModel.getRooms().get(i).getLocation() == getSelectedLocation()) {
 				int roomNumber = roomModel.getRooms().get(i).getRoomNumber();
 				for (int j = 0; j < daysOfSelectedMonth() + 1; j++) {
 					StackPane p = new StackPane();
@@ -224,23 +269,22 @@ public class ReservationWindowController implements LinnaeusHotelController {
 					Color c = new Color(0, 0, 0, 0.5);
 					r.setStroke(c);
 					p.getChildren().add(r);
-					
+
 					if (j == 0) {
 						Text t = new Text(String.valueOf(roomNumber));
 						p.getChildren().add(t);
 					}
 
 					// Mark all reservations in the calendar.
-					for(int rIndex = 0; rIndex < reservationModel.getReservations().size(); rIndex++){
+					for (int rIndex = 0; rIndex < reservationModel.getReservations().size(); rIndex++) {
 						Reservation res = reservationModel.getReservations().get(rIndex);
-						if (res.getRoom().getRoomNumber() == roomNumber &&
-								isWithinReservationTime(res, j) &&
-								res.getRoom().getLocation() == getSelectedLocation()) {
+						if (res.getRoom().getRoomNumber() == roomNumber && isWithinReservationTime(res, j)
+								&& res.getRoom().getLocation() == getSelectedLocation()) {
 							r.setFill(Color.LIGHTGREEN);
 						}
 					}
-					reservationsGridPane.add(p, j, i+1);
-				}				
+					reservationsGridPane.add(p, j, i + 1);
+				}
 			}
 		}
 	}
@@ -249,42 +293,42 @@ public class ReservationWindowController implements LinnaeusHotelController {
 		// onMouseClicked for each reservation in the gridpane.
 		for (int i = 0; i < reservationsGridPane.getChildren().size(); i++) {
 			StackPane node = (StackPane) reservationsGridPane.getChildren().get(i);
-			node.setOnMouseClicked(c -> {		
+			node.setOnMouseClicked(c -> {
 				int day = GridPane.getColumnIndex(node);
 				int room = GridPane.getRowIndex(node);
-				
-				if(day > 0 && room > 0){
+
+				if (day > 0 && room > 0) {
 					int roomNumber = roomModel.getRooms().get(room - 1).getRoomNumber();
-					
+
 					// Check which reservation matches the node.
-					for(int rIndex = 0; rIndex < reservationModel.getReservations().size(); rIndex++){
+					for (int rIndex = 0; rIndex < reservationModel.getReservations().size(); rIndex++) {
 						Reservation res = reservationModel.getReservations().get(rIndex);
-						if (res.getRoom().getRoomNumber() == roomNumber &&
-								isWithinReservationTime(res, day) &&
-								res.getRoom().getLocation() == getSelectedLocation()) {
-							System.out.println(res.getStartDate() + ", " + res.getEndDate() + ", " + res.getRoom().getRoomNumber());
+						if (res.getRoom().getRoomNumber() == roomNumber && isWithinReservationTime(res, day)
+								&& res.getRoom().getLocation() == getSelectedLocation()) {
+							System.out.println(res.getStartDate() + ", " + res.getEndDate() + ", "
+									+ res.getRoom().getRoomNumber());
 						}
 					}
 				}
 			});
 		}
 	}
-	
-	private boolean isReservationOverlapping(Reservation r){
+
+	private boolean isReservationOverlapping(Reservation r) {
 		boolean isOverlapping = false;
-		for(int i = 0; i < reservationModel.getReservations().size(); i++){
+		for (int i = 0; i < reservationModel.getReservations().size(); i++) {
 			Reservation old = reservationModel.getReservations().get(i);
 			LocalDate otherStart = old.getStartDate();
 			LocalDate otherEnd = old.getEndDate();
-			
+
 			// Check if date is valid
-			if(r.getStartDate().isBefore(otherStart) && r.getEndDate().isBefore(otherStart.plusDays(1)) ||
-					r.getStartDate().isAfter(otherEnd.minusDays(1))){
-				
+			if (r.getStartDate().isBefore(otherStart) && r.getEndDate().isBefore(otherStart.plusDays(1))
+					|| r.getStartDate().isAfter(otherEnd.minusDays(1))) {
+
 				// Check if room is valid
-				if(r.getRoom().getRoomNumber() == old.getRoom().getRoomNumber() &&
-						r.getRoom().getLocation() == old.getRoom().getLocation()){
-					
+				if (r.getRoom().getRoomNumber() == old.getRoom().getRoomNumber()
+						&& r.getRoom().getLocation() == old.getRoom().getLocation()) {
+
 					isOverlapping = false;
 				}
 			} else {
@@ -294,63 +338,64 @@ public class ReservationWindowController implements LinnaeusHotelController {
 		}
 		return isOverlapping;
 	}
-	
-	private boolean isValidReservationInfo(LocalDate arrival, LocalDate departure){
-		if(arrival == null || departure == null || selectedGuest == null || selectedRoom == null ||
-				!isValidPrice(priceTextField.getText()) || !arrival.isBefore(departure)){
+
+	private boolean isValidReservationInfo(LocalDate arrival, LocalDate departure) {
+		if (arrival == null || departure == null || guestModel.getCurrentGuest().get() == null
+				|| roomModel.getCurrentRoom().get() == null || !isValidPrice(priceTextField.getText())
+				|| !arrival.isBefore(departure)) {
 			return false;
 		}
 		return true;
 	}
-	
-	private boolean isSmoking(){
-		if(smokingRadioButton.isSelected()){
+
+	private boolean isSmoking() {
+		if (smokingRadioButton.isSelected()) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
-	private RoomQuality getSelectedRoomQuality(){
+
+	private RoomQuality getSelectedRoomQuality() {
 		RoomQuality roomQuality = null;
 		RadioButton radioButton2 = (RadioButton) Group3.getSelectedToggle();
-		if(radioButton2.getText().equals("Quality 1")){
+		if (radioButton2.getText().equals("Quality 1")) {
 			roomQuality = RoomQuality.QUALITY_ONE;
-		} else if(radioButton2.getText().equals("Quality 2")){
+		} else if (radioButton2.getText().equals("Quality 2")) {
 			roomQuality = RoomQuality.QUALITY_TWO;
-		} else if(radioButton2.getText().equals("Quality 3")){
+		} else if (radioButton2.getText().equals("Quality 3")) {
 			roomQuality = RoomQuality.QUALITY_THREE;
-		} else if(radioButton2.getText().equals("Quality 4")){
+		} else if (radioButton2.getText().equals("Quality 4")) {
 			roomQuality = RoomQuality.QUALITY_FOUR;
-		} else if(radioButton2.getText().equals("Quality 5")){
+		} else if (radioButton2.getText().equals("Quality 5")) {
 			roomQuality = RoomQuality.QUALITY_FIVE;
 		}
 		return roomQuality;
 	}
-	
-	private RoomType getSelectedRoomType(){
+
+	private RoomType getSelectedRoomType() {
 		RoomType roomType1 = null;
 		RadioButton radioButton1 = (RadioButton) Group.getSelectedToggle();
-		if(radioButton1.getText().equals("Single room")){
+		if (radioButton1.getText().equals("Single room")) {
 			roomType1 = RoomType.SINGLE_ROOM;
-		} else if(radioButton1.getText().equals("Double room")){
+		} else if (radioButton1.getText().equals("Double room")) {
 			roomType1 = RoomType.DOUBLE_ROOM;
-		} else if(radioButton1.getText().equals("Triple room")){
+		} else if (radioButton1.getText().equals("Triple room")) {
 			roomType1 = RoomType.TRIPLE_ROOM;
-		} else if(radioButton1.getText().equals("Four-bed room")){
+		} else if (radioButton1.getText().equals("Four-bed room")) {
 			roomType1 = RoomType.FOUR_BED_ROOM;
-		} else if(radioButton1.getText().equals("Appartment/Suite")){
+		} else if (radioButton1.getText().equals("Appartment/Suite")) {
 			roomType1 = RoomType.APARTMENT_SUITE;
 		}
 		return roomType1;
 	}
-	
-	private boolean isValidPrice(String string){
-		if(string.equals("")){
+
+	private boolean isValidPrice(String string) {
+		if (string.equals("")) {
 			return false;
 		}
-		for(int i = 0; i < string.length(); i++){
-			if(!Character.isDigit(string.charAt(i))){
+		for (int i = 0; i < string.length(); i++) {
+			if (!Character.isDigit(string.charAt(i))) {
 				return false;
 			}
 		}
@@ -364,9 +409,9 @@ public class ReservationWindowController implements LinnaeusHotelController {
 		int daysInMonth = yearMonthObject.lengthOfMonth();
 		return daysInMonth;
 	}
-	
-	private Location getSelectedLocation(){
-		if(vaxjoRadioButton.isSelected()){
+
+	private Location getSelectedLocation() {
+		if (vaxjoRadioButton.isSelected()) {
 			return Location.VAXJO;
 		}
 		return Location.KALMAR;
@@ -381,39 +426,39 @@ public class ReservationWindowController implements LinnaeusHotelController {
 		}
 		return m;
 	}
-	
-	private boolean isWithinReservationTime(Reservation res, int day){
-		
-		if(day == 0){
+
+	private boolean isWithinReservationTime(Reservation res, int day) {
+
+		if (day == 0) {
 			return false;
 		}
 
 		String dateStr = yearMenuButton.getText() + "-";
-		if(getSelectedMonth() < 10){
+		if (getSelectedMonth() < 10) {
 			dateStr += "0" + getSelectedMonth();
 		} else {
 			dateStr += getSelectedMonth();
 		}
 		dateStr += "-";
-		if(day < 10){
+		if (day < 10) {
 			dateStr += "0" + day;
-		} else{
+		} else {
 			dateStr += day;
 		}
-		
-		LocalDate date = LocalDate.parse(dateStr);	
+
+		LocalDate date = LocalDate.parse(dateStr);
 		return !(date.isBefore(res.getStartDate()) || date.isAfter(res.getEndDate().minusDays(1)));
 	}
-	
+
 	public void initializeReservationModel(ReservationModel reservationModel) {
 		if (this.reservationModel != null) {
 			throw new IllegalStateException("Model can only be initialize once");
 		}
 		this.reservationModel = reservationModel;
 	}
-	
-	public void initializeRoomModel(RoomModel roomModel){
-		if(this.roomModel != null){
+
+	public void initializeRoomModel(RoomModel roomModel) {
+		if (this.roomModel != null) {
 			throw new IllegalStateException("Model can only be initialized once");
 		}
 		this.roomModel = roomModel;
