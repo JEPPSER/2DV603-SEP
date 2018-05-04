@@ -18,6 +18,15 @@ import linnaeushotel.room.Room;
 import linnaeushotel.room.RoomQuality;
 import linnaeushotel.room.RoomType;
 
+/**
+ * This is the controller class for SelectRoomWindow. This window is used for selecting a
+ * room for a reservation. The controller also filters the rooms to only show valid 
+ * rooms according to the specifics provided by the user.
+ * 
+ * @author Jesper Bergstrom
+ * @name SelectRoomWindowController.java
+ * @version 0.00.00
+ */
 public class SelectRoomWindowController implements LinnaeusHotelController {
 
 	@FXML public VBox floorContainer;
