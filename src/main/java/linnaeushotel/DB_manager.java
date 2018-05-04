@@ -1,10 +1,9 @@
 package linnaeushotel;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.List;
-
-import org.bson.Document;
+import java.util.Date;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -13,7 +12,6 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.client.MongoCollection;
 
 import linnaeushotel.guest.Guest;
 import linnaeushotel.reservation.Reservation;
@@ -25,7 +23,6 @@ public class DB_manager{
 	private DBCollection collection;
 	
 	public DB_manager(){
-		
 	}
 	
 	
@@ -162,7 +159,12 @@ public class DB_manager{
 				g.setEmail((String)obj.get("email"));
 				g.setFavouriteRoom((String)obj.get("favouriteRoom"));
 				g.setSmoker((Boolean)obj.get("smoker"));
-				g.setBirthday((LocalDate)obj.get("birthday"));
+				
+				Date d = (Date)obj.get("birthday");
+				if (d != null) {
+					g.setBirthday((LocalDate)d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+				}
+				
 				g.setSpouse((String)obj.get("spose"));
 				g.setChildren((String)obj.get("children"));
 				g.setCompany((String)obj.get("company"));

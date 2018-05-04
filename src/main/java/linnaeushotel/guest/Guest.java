@@ -13,6 +13,8 @@ import linnaeushotel.reservation.Reservation;
  */
 public class Guest {
 	
+	private int id;
+	
 	private String company;
 	private String lastName;
 	private String firstName;
@@ -249,5 +251,19 @@ public class Guest {
 	 */
 	public void setReservations(ArrayList<Reservation> reservations) {
 		this.reservations = reservations;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 }

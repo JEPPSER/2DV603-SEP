@@ -54,6 +54,10 @@ public class SearchGuestWindowController implements LinnaeusHotelController {
 			}
 		});
 		
+		/**
+		 * Performs a search for guests based on what's currently entered
+		 * within the searchGuestTextField.
+		 */
 		searchGuestButton.setOnAction(c -> {
 			if (!searchGuestTextField.getText().isEmpty()) {
 				ArrayList<Guest> guestList = new ArrayList<>();
@@ -74,11 +78,18 @@ public class SearchGuestWindowController implements LinnaeusHotelController {
 			}
 		});
 		
+		/**
+		 * Cancels the search by closing the window.
+		 */
 		cancelButton.setOnAction(c -> {
 			Stage stage = (Stage) cancelButton.getScene().getWindow();
 			stage.close();
 		});
 		
+		/**
+		 * Loads the selected guest and sets it as the current guest
+		 * within the guestModel followed by closing the search window.
+		 */
 		loadButton.setOnAction(c -> {
 			if (this.guestsListView.getSelectionModel().getSelectedItem() != null) {
 				this.guestModel.setCurrentGuest(guestsListView.getSelectionModel().getSelectedItem());
@@ -88,16 +99,29 @@ public class SearchGuestWindowController implements LinnaeusHotelController {
 		});
 	}
 	
+	/**
+	 * Performs a match on the specified keyword and guest by comparing the keyword
+	 * to the guest's first and last name.
+	 * 
+	 * @param keyword - Keyword to match with guest.
+	 * @param guest - Target guest to match against.
+	 * 
+	 * @return - True if the keyword matches the guest's name; False otherwise.
+	 */
 	private boolean nameMatch(String keyword, Guest guest) {
-		if (guest.getFirstName().toLowerCase().contains(keyword.toLowerCase().trim())) {
-			return true;
-		} else if (guest.getLastName().toLowerCase().contains(keyword.toLowerCase())) {
+		if (guest.getFirstName().toLowerCase().contains(keyword.toLowerCase().trim())
+				|| guest.getLastName().toLowerCase().contains(keyword.toLowerCase().trim())) {
 			return true;
 		}
 		
 		return false;
 	}
 	
+	/**
+	 * Initializes the GuestModel for this controller.
+	 * 
+	 * @param guestModel
+	 */
 	public void initializeGuestModel(GuestModel guestModel) {
 		if (this.guestModel != null) {
 			throw new IllegalStateException("Model can only be initialize once");

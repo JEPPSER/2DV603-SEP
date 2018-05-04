@@ -39,11 +39,19 @@ public class AdditionalDataWindowController implements LinnaeusHotelController {
 	@FXML
 	public void initialize() {
 		
+		/**
+		 * Cancels the search by closing the window.
+		 */
 		cancelButton.setOnAction(c -> {
 			Stage stage = (Stage) cancelButton.getScene().getWindow();
 			stage.close();
 		});
 		
+		/**
+		 * Sets all the specified data from this window to the guest.
+		 * If no current guest in the model is active then a new guest object is created
+		 * and then populated with the data.
+		 */
 		okButton.setOnAction(c -> {
 			Guest modifiedGuest = this.guestModel.getCurrentGuest().get();
 			if (modifiedGuest == null) {
@@ -73,6 +81,13 @@ public class AdditionalDataWindowController implements LinnaeusHotelController {
 		});
 	}
 	
+	/**
+	 * Initializes the GuestModel for this controller.
+	 * If there is a currentGuest selected within the model then all the 
+	 * fields of this window is populated with the data of that guest.
+	 * 
+	 * @param guestModel
+	 */
 	public void initializeGuestModel(GuestModel guestModel) {
 		if (this.guestModel != null) {
 			throw new IllegalStateException("Model can only be initialize once");

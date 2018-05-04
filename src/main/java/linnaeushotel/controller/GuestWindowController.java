@@ -135,11 +135,11 @@ public class GuestWindowController implements LinnaeusHotelController {
 		deleteGuestButton.setOnAction(c -> {
 			if (guestSelected) {
 				int i = this.guestModel.getGuests().indexOf(this.guestModel.getCurrentGuest().get());
+				Guest g = this.guestModel.getGuests().get(i);
 				this.guestModel.getGuests().remove(i);
+				this.guestModel.deleteGuest(g); // Delete guest from database.
 				
 				clearAll();
-				
-				//TODO: Delete guest from database.
 			} else {
 				clearAll();
 			}
@@ -166,21 +166,23 @@ public class GuestWindowController implements LinnaeusHotelController {
 				int i = this.guestModel.getGuests().indexOf(this.guestModel.getCurrentGuest().get());
 				this.guestModel.getGuests().set(i, guestModel.getCurrentGuest().get());
 				
-				//TODO: Update guest in database.
+				this.guestModel.updateGuest(this.guestModel.getGuests().get(i));
 			} else {
 				setGuestData();
 				
 				if (!guestModel.getCurrentGuest().get().getFirstName().isEmpty() &&
 						!guestModel.getCurrentGuest().get().getLastName().isEmpty()) {
 					this.guestModel.getGuests().add(guestModel.getCurrentGuest().get());
-					this.guestModel.setCurrentGuest(null);
-					//TODO: Add new guest to database.
+					
+					//TODO: Temporarily set id manually. - Oskar Mendel 2018-05-04
+					int i = this.guestModel.getGuests().indexOf(this.guestModel.getCurrentGuest().get());
+					this.guestModel.getCurrentGuest().get().setId(i+1);
+					
+					this.guestModel.addGuest(this.guestModel.getCurrentGuest().get());
 				} else {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Insufficient Information");
-					alert.setContentText("Insufficient guest information was entered. "
+					displayErrorDialog("Insufficient Information", 
+							"Insufficient guest information was entered. "
 							+ "Please enter a first and last name for the guest.");
-					alert.showAndWait();
 				}
 			}
 		});
@@ -243,6 +245,20 @@ public class GuestWindowController implements LinnaeusHotelController {
 		
 		deleteGuestButton.setDisable(true);
 		guestSelected = false;
+	}
+	
+	/**
+	 * Helper method to display an error dialog with the specified
+	 * title and content text.
+	 * 
+	 * @param title - Title of the error dialog.
+	 * @param content - Content text of the error dialog.
+	 */
+	private void displayErrorDialog(String title, String content) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(title);
+		alert.setContentText(content);
+		alert.showAndWait();
 	}
 	
 	/**
