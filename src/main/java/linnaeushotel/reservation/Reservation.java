@@ -2,6 +2,7 @@ package linnaeushotel.reservation;
 
 import java.time.LocalDate;
 
+import linnaeushotel.guest.Guest;
 import linnaeushotel.room.Room;
 
 /**
@@ -15,6 +16,8 @@ public class Reservation {
 	private LocalDate startDate;
 	private LocalDate endDate;
 	
+	private Guest guest;
+	
 	private Room room;
 	
 	private boolean checkedIn;
@@ -22,7 +25,7 @@ public class Reservation {
 	//TODO: Do not allow negative price. - Oskar Mendel 2018-05-01
 	private double price;
 	
-	public Reservation(LocalDate startDate, LocalDate endDate, Room room, double price) {
+	public Reservation(LocalDate startDate, LocalDate endDate, Room room, double price, Guest guest) {
 		if (price < 0) {
 			//TODO: What kind of exception / error do we want here? - Oskar Mendel 2018-05-01
 			throw new RuntimeException("Negative price");
@@ -32,6 +35,7 @@ public class Reservation {
 		this.endDate = endDate;
 		this.room = room;
 		this.checkedIn = false;
+		this.guest = guest;
 	}
 
 	/**

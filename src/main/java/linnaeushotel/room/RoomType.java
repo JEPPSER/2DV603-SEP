@@ -9,7 +9,7 @@ package linnaeushotel.room;
 public enum RoomType {
 	SINGLE_ROOM,
 	DOUBLE_ROOM,
-	TRIPPLE_ROOM,
+	TRIPLE_ROOM,
 	FOUR_BED_ROOM,
 	APARTMENT_SUITE
 }
