@@ -37,6 +37,26 @@ public class Reservation {
 		this.checkedIn = false;
 		this.guest = guest;
 	}
+	
+	/**
+	 * Checks if the reservation overlaps another reservation or potential reservation.
+	 * 
+	 * @param arrival
+	 * @param departure
+	 * @param room
+	 * @return boolean
+	 */
+	public boolean isOverlapping(LocalDate arrival, LocalDate departure, Room room){
+		// Check if room is valid
+		if(room.getLocation() == this.room.getLocation() && room.getRoomNumber() == this.room.getRoomNumber()){
+			// Check if date is valid
+			if (!(this.startDate.isBefore(arrival) && this.endDate.isBefore(arrival.plusDays(1))
+					|| this.startDate.isAfter(departure.minusDays(1)))) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * @return the startDate
