@@ -193,7 +193,28 @@ public class ReservationWindowController implements LinnaeusHotelController {
 		});
 
 		chooseGuestButton.setOnAction(c -> {
+			try {	
+				Parent root;
+				URI locationURI = new File("src/main/resources/" + 	SEARCH_GUEST_WINDOW).toURI();
+				SearchGuestWindowController searchGuestWindowController; 
+				
+				FXMLLoader loader = new FXMLLoader(locationURI.toURL());
+				root = loader.load();
 
+				Stage stage = new Stage();
+				stage.setTitle("Select Room");
+				stage.setScene(new Scene(root));
+
+				searchGuestWindowController = loader.<SearchGuestWindowController>getController();
+				searchGuestWindowController.initializeGuestModel(this.guestModel);
+				stage.showAndWait();
+				if(guestModel.getCurrentGuest().get() != null){
+					Guest g = guestModel.getCurrentGuest().get();
+					chooseGuestTextField.setText(g.getFirstName() + " " + g.getLastName());
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		});
 
 		okButton.setOnAction(c -> {
