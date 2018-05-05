@@ -8,60 +8,45 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-	minWidth="-Infinity" prefHeight="673.0" prefWidth="1015.0" spacing="10.0"
-	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="linnaeushotel.controller.ReservationWindowController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="1015.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linnaeushotel.controller.ReservationWindowController">
 	<children>
 		<HBox spacing="10.0">
 			<children>
 				<VBox spacing="5.0">
 					<children>
-						<RadioButton fx:id="singleRoomRadioButton"
-							mnemonicParsing="false" selected="true" text="Single room">
+						<RadioButton fx:id="singleRoomRadioButton" mnemonicParsing="false" selected="true" text="Single room">
 							<toggleGroup>
 								<ToggleGroup fx:id="Group" />
 							</toggleGroup>
 						</RadioButton>
-						<RadioButton fx:id="doubleRoomRadioButton"
-							mnemonicParsing="false" text="Double room" toggleGroup="$Group" />
-						<RadioButton fx:id="tripleRoomRadioButton"
-							mnemonicParsing="false" text="Triple room" toggleGroup="$Group" />
-						<RadioButton fx:id="fourBedRoomRadioButton"
-							mnemonicParsing="false" text="Four-bed room" toggleGroup="$Group" />
-						<RadioButton fx:id="suiteRadioButton" mnemonicParsing="false"
-							text="Apartment/Suite" toggleGroup="$Group" />
+						<RadioButton fx:id="doubleRoomRadioButton" mnemonicParsing="false" text="Double room" toggleGroup="$Group" />
+						<RadioButton fx:id="tripleRoomRadioButton" mnemonicParsing="false" text="Triple room" toggleGroup="$Group" />
+						<RadioButton fx:id="fourBedRoomRadioButton" mnemonicParsing="false" text="Four-bed room" toggleGroup="$Group" />
+						<RadioButton fx:id="suiteRadioButton" mnemonicParsing="false" text="Apartment/Suite" toggleGroup="$Group" />
 						<Group />
 					</children>
 				</VBox>
 				<VBox spacing="5.0">
 					<children>
-						<RadioButton fx:id="quality1RadioButton"
-							mnemonicParsing="false" selected="true" text="Quality 1">
+						<RadioButton fx:id="quality1RadioButton" mnemonicParsing="false" selected="true" text="Quality 1">
 							<toggleGroup>
 								<ToggleGroup fx:id="Group3" />
 							</toggleGroup>
 						</RadioButton>
-						<RadioButton fx:id="quality2RadioButton"
-							mnemonicParsing="false" text="Quality 2" toggleGroup="$Group3" />
-						<RadioButton fx:id="quality3RadioButton"
-							mnemonicParsing="false" text="Quality 3" toggleGroup="$Group3" />
-						<RadioButton fx:id="quality4RadioButton"
-							mnemonicParsing="false" text="Quality 4" toggleGroup="$Group3" />
-						<RadioButton fx:id="quality5RadioButton"
-							mnemonicParsing="false" text="Quality 5" toggleGroup="$Group3" />
+						<RadioButton fx:id="quality2RadioButton" mnemonicParsing="false" text="Quality 2" toggleGroup="$Group3" />
+						<RadioButton fx:id="quality3RadioButton" mnemonicParsing="false" text="Quality 3" toggleGroup="$Group3" />
+						<RadioButton fx:id="quality4RadioButton" mnemonicParsing="false" text="Quality 4" toggleGroup="$Group3" />
+						<RadioButton fx:id="quality5RadioButton" mnemonicParsing="false" text="Quality 5" toggleGroup="$Group3" />
 					</children>
 				</VBox>
 				<VBox spacing="5.0">
 					<children>
-						<RadioButton fx:id="smokingRadioButton"
-							mnemonicParsing="false" selected="true" text="Smoking" toggleGroup="$Group4">
+						<RadioButton fx:id="smokingRadioButton" mnemonicParsing="false" selected="true" text="Smoking" toggleGroup="$Group4">
 							<toggleGroup>
 								<ToggleGroup fx:id="Group4" />
 							</toggleGroup>
 						</RadioButton>
-						<RadioButton fx:id="nonSmokingRadioButton"
-							mnemonicParsing="false" text="Non-smoking" toggleGroup="$Group4" />
+						<RadioButton fx:id="nonSmokingRadioButton" mnemonicParsing="false" text="Non-smoking" toggleGroup="$Group4" />
 					</children>
 				</VBox>
 				<VBox spacing="5.0">
@@ -76,23 +61,20 @@
 					<children>
 						<HBox spacing="5.0">
 							<children>
-								<Button fx:id="chooseGuestButton" mnemonicParsing="false"
-									text="Choose guest" />
+								<Button fx:id="chooseGuestButton" mnemonicParsing="false" text="Choose guest" />
 								<TextField fx:id="chooseGuestTextField" editable="false" />
 							</children>
 						</HBox>
 						<HBox spacing="5.0">
 							<children>
-								<Button fx:id="chooseRoomButton" mnemonicParsing="false"
-									text="Choose room" />
+								<Button fx:id="chooseRoomButton" mnemonicParsing="false" text="Choose room" />
 								<TextField fx:id="chooseRoomTextField" editable="false" />
 							</children>
 						</HBox>
 						<HBox spacing="5.0">
 							<children>
 								<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price" />
-								<TextField fx:id="priceTextField" prefHeight="25.0"
-									prefWidth="78.0" />
+								<TextField fx:id="priceTextField" prefHeight="25.0" prefWidth="78.0" />
 								<Text strokeType="OUTSIDE" strokeWidth="0.0" text="SEK" />
 							</children>
 						</HBox>
@@ -100,8 +82,7 @@
 				</VBox>
 				<VBox spacing="5.0">
 					<children>
-						<Button fx:id="clearFieldsButton" mnemonicParsing="false"
-							text="Clear Fields" />
+						<Button fx:id="clearFieldsButton" mnemonicParsing="false" text="Clear Fields" />
 						<Button fx:id="okButton" mnemonicParsing="false" text="OK" />
 					</children>
 				</VBox>
@@ -112,16 +93,13 @@
 		</HBox>
 		<HBox alignment="TOP_RIGHT" spacing="5.0">
 			<children>
-				<RadioButton fx:id="vaxjoRadioButton" mnemonicParsing="false"
-					selected="true" text="Växjö">
+				<RadioButton fx:id="vaxjoRadioButton" mnemonicParsing="false" selected="true" text="Växjö">
 					<toggleGroup>
 						<ToggleGroup fx:id="Group2" />
 					</toggleGroup>
 				</RadioButton>
-				<RadioButton fx:id="kalmarRadioButton" mnemonicParsing="false"
-					text="Kalmar" toggleGroup="$Group2" />
-				<MenuButton fx:id="monthMenuButton" mnemonicParsing="false"
-					prefWidth="100.0">
+				<RadioButton fx:id="kalmarRadioButton" mnemonicParsing="false" text="Kalmar" toggleGroup="$Group2" />
+				<MenuButton fx:id="monthMenuButton" mnemonicParsing="false" prefWidth="100.0">
 					<items>
 						<MenuItem mnemonicParsing="false" text="January" />
 						<MenuItem mnemonicParsing="false" text="February" />
@@ -137,8 +115,7 @@
 						<MenuItem mnemonicParsing="false" text="December" />
 					</items>
 				</MenuButton>
-				<MenuButton fx:id="yearMenuButton" mnemonicParsing="false"
-					prefWidth="100.0" />
+				<MenuButton fx:id="yearMenuButton" mnemonicParsing="false" prefWidth="100.0" />
 				<Button fx:id="showButton" mnemonicParsing="false" text="Show" />
 			</children>
 			<padding>
@@ -149,12 +126,10 @@
 			<content>
 				<GridPane fx:id="reservationsGridPane" gridLinesVisible="true">
 					<columnConstraints>
-						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-							prefWidth="100.0" />
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 					</columnConstraints>
 					<rowConstraints>
-						<RowConstraints minHeight="10.0" prefHeight="30.0"
-							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 					</rowConstraints>
 				</GridPane>
 			</content>
