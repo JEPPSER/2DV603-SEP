@@ -87,10 +87,17 @@
             </VBox>
          </children>
       </VBox>
-      <VBox>
+      <VBox spacing="5.0">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reservations" />
             <ListView fx:id="reservationsListView" prefHeight="80.0" prefWidth="250.0" />
+            <HBox spacing="5.0">
+               <children>
+                  <Button fx:id="deleteReservationButton" mnemonicParsing="false" text="Delete" visible="false" />
+                  <Button mnemonicParsing="false" text="Check in" visible="false" />
+                  <Button mnemonicParsing="false" text="Check out" visible="false" />
+               </children>
+            </HBox>
          </children>
          <padding>
             <Insets top="30.0" />
