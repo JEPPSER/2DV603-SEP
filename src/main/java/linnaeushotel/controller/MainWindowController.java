@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainWindowController implements LinnaeusHotelController {
@@ -33,7 +34,7 @@ public class MainWindowController implements LinnaeusHotelController {
 				
 				guestWindowController = loader.<GuestWindowController>getController();
 				
-				//TODO: Make this button invalid while window is alive. - Oskar Mendel 2018-05-03
+				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.show();
 			} catch (IOException e) {
 				e.printStackTrace();

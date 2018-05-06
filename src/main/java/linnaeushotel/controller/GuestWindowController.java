@@ -20,6 +20,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import linnaeushotel.guest.Guest;
@@ -128,8 +129,7 @@ public class GuestWindowController implements LinnaeusHotelController {
 				searchGuestWindowController = loader.<SearchGuestWindowController>getController();
 				searchGuestWindowController.initializeGuestModel(this.guestModel);
 				
-				
-				//TODO: Make this button invalid while window is alive. - Oskar Mendel 2018-05-03
+				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.showAndWait();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -166,7 +166,7 @@ public class GuestWindowController implements LinnaeusHotelController {
 				additionalDataWindowController = loader.<AdditionalDataWindowController>getController();
 				additionalDataWindowController.initializeGuestModel(this.guestModel);
 				
-				//TODO: Make this button invalid while window is alive. - Oskar Mendel 2018-05-03
+				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.show();
 			} catch (IOException e) {
 				e.printStackTrace();
