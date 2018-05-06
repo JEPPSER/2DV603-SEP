@@ -85,14 +85,21 @@ public class GuestWindowController implements LinnaeusHotelController {
 			@Override
 			public void handle(MouseEvent event) {
 				Reservation r = reservationsListView.getSelectionModel().getSelectedItem();
-				selectedReservation = r;
 				
-				deleteReservationButton.setVisible(true);
-				
-				if (r.isCheckedIn()) {
-					checkOutButton.setVisible(true);					
+				if (r != null) {
+					selectedReservation = r;
+					
+					deleteReservationButton.setVisible(true);
+					
+					if (r.isCheckedIn()) {
+						checkOutButton.setVisible(true);					
+					} else {
+						checkInButton.setVisible(true);					
+					}
 				} else {
-					checkInButton.setVisible(true);					
+					deleteReservationButton.setVisible(false);
+					checkInButton.setVisible(false);
+					checkOutButton.setVisible(false);
 				}
 			}
 		});
@@ -231,18 +238,31 @@ public class GuestWindowController implements LinnaeusHotelController {
 			}
 		});
 		
-		
 		deleteReservationButton.setOnAction(c -> {
+			Guest g = this.guestModel.getCurrentGuest().get();
+			int i = g.getReservations().indexOf(this.selectedReservation);
+			g.getReservations().remove(i);
+			this.reservationsListView.getItems().remove(i);
 			
+			this.selectedReservation = null;
+			//TODO: Update the guests reservations in DB.
+			
+			reservationsListView.getSelectionModel().clearSelection();
+			
+			deleteReservationButton.setVisible(false);
+			checkInButton.setVisible(false);
+			checkOutButton.setVisible(false);
 		});
 		
 		checkInButton.setOnAction(c -> {
+			//TODO: Update the reservation in DB.
 			this.selectedReservation.setCheckedIn(true);
 			checkInButton.setVisible(false);
 			checkOutButton.setVisible(true);
 		});
 		
 		checkOutButton.setOnAction(c -> {
+			//TODO: Update the reservation in DB.
 			this.selectedReservation.setCheckedIn(false);
 			checkOutButton.setVisible(false);
 			checkInButton.setVisible(true);
@@ -288,7 +308,11 @@ public class GuestWindowController implements LinnaeusHotelController {
 		birthdayDatePicker.setValue(guest.getBirthday());
 		citizenshipTextField.setText(guest.getCitizenship());
 		
-		reservationsListView.getItems().setAll(guest.getReservations());
+		if (guest.getReservations() != null) {			
+			reservationsListView.getItems().setAll(guest.getReservations());
+		} else {
+			reservationsListView.getItems().clear();
+		}
 	}
 	
 	/**
