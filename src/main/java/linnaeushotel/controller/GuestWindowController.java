@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,12 +13,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import linnaeushotel.guest.Guest;
 import linnaeushotel.model.GuestModel;
 import linnaeushotel.reservation.Reservation;
@@ -51,10 +55,47 @@ public class GuestWindowController implements LinnaeusHotelController {
 	
 	private GuestModel guestModel;
 	private boolean guestSelected = false;
+	private Reservation selectedReservation;
 	
 	@FXML
 	public void initialize() {
 		this.initializeGuestModel(new GuestModel());
+		
+		reservationsListView.setCellFactory(new Callback<ListView<Reservation>, ListCell<Reservation>>() {
+			@Override
+			public ListCell<Reservation> call(ListView<Reservation> param) {
+				ListCell<Reservation> cell = new ListCell<Reservation>() {
+					@Override
+					protected void updateItem(Reservation t, boolean bln) {
+						super.updateItem(t, bln);
+						if (t != null) {
+							setText("Room Nr: " + t.getRoom().getRoomNumber() + ", Location: " + t.getRoom().getLocation() + 
+									", Arrival: " + t.getStartDate() + ", Departure: " + t.getEndDate());
+						} else {
+							setText("");
+						}
+					}
+				};
+				
+				return cell;
+			}
+		});
+		
+		reservationsListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				Reservation r = reservationsListView.getSelectionModel().getSelectedItem();
+				selectedReservation = r;
+				
+				deleteReservationButton.setVisible(true);
+				
+				if (r.isCheckedIn()) {
+					checkOutButton.setVisible(true);					
+				} else {
+					checkInButton.setVisible(true);					
+				}
+			}
+		});
 		
 		/**
 		 * This will open a new SearchGuestWindow which allows the user to
@@ -189,6 +230,23 @@ public class GuestWindowController implements LinnaeusHotelController {
 				}
 			}
 		});
+		
+		
+		deleteReservationButton.setOnAction(c -> {
+			
+		});
+		
+		checkInButton.setOnAction(c -> {
+			this.selectedReservation.setCheckedIn(true);
+			checkInButton.setVisible(false);
+			checkOutButton.setVisible(true);
+		});
+		
+		checkOutButton.setOnAction(c -> {
+			this.selectedReservation.setCheckedIn(false);
+			checkOutButton.setVisible(false);
+			checkInButton.setVisible(true);
+		});
 	}
 	
 	/**
@@ -229,6 +287,8 @@ public class GuestWindowController implements LinnaeusHotelController {
 		
 		birthdayDatePicker.setValue(guest.getBirthday());
 		citizenshipTextField.setText(guest.getCitizenship());
+		
+		reservationsListView.getItems().setAll(guest.getReservations());
 	}
 	
 	/**
@@ -248,6 +308,13 @@ public class GuestWindowController implements LinnaeusHotelController {
 		
 		deleteGuestButton.setDisable(true);
 		guestSelected = false;
+		
+		this.selectedReservation = null;
+		reservationsListView.getItems().clear();
+		
+		deleteReservationButton.setVisible(false);
+		checkInButton.setVisible(false);
+		checkOutButton.setVisible(false);
 	}
 	
 	/**

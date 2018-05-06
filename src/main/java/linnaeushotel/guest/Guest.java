@@ -33,9 +33,9 @@ public class Guest {
 	private boolean smoker;
 	private LocalDate birthday;
 	
-	private ArrayList<Reservation> reservations;
+	private ArrayList<Reservation> reservations = new ArrayList<>();
 	
-	public Guest() {		
+	public Guest() {
 	}
 	
 	//TODO: Return actual bill and not void.
