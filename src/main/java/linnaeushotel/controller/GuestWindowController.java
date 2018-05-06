@@ -45,6 +45,9 @@ public class GuestWindowController implements LinnaeusHotelController {
 	@FXML public Button clearGuestFieldsButton;
 	@FXML public Button saveGuestButton;
 	@FXML public ListView<Reservation> reservationsListView;
+	@FXML public Button deleteReservationButton;
+	@FXML public Button checkInButton;
+	@FXML public Button checkOutButton;
 	
 	private GuestModel guestModel;
 	private boolean guestSelected = false;

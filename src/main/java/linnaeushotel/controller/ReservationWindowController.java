@@ -193,7 +193,28 @@ public class ReservationWindowController implements LinnaeusHotelController {
 		});
 
 		chooseGuestButton.setOnAction(c -> {
+			try {	
+				Parent root;
+				URI locationURI = new File("src/main/resources/" + 	SEARCH_GUEST_WINDOW).toURI();
+				SearchGuestWindowController searchGuestWindowController; 
+				
+				FXMLLoader loader = new FXMLLoader(locationURI.toURL());
+				root = loader.load();
 
+				Stage stage = new Stage();
+				stage.setTitle("Select Room");
+				stage.setScene(new Scene(root));
+
+				searchGuestWindowController = loader.<SearchGuestWindowController>getController();
+				searchGuestWindowController.initializeGuestModel(this.guestModel);
+				stage.showAndWait();
+				if(guestModel.getCurrentGuest().get() != null){
+					Guest g = guestModel.getCurrentGuest().get();
+					chooseGuestTextField.setText(g.getFirstName() + " " + g.getLastName());
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		});
 
 		okButton.setOnAction(c -> {
@@ -209,29 +230,22 @@ public class ReservationWindowController implements LinnaeusHotelController {
 				alert.setContentText("The reservatoin information was not sufficient!");
 				alert.showAndWait();
 			} else {
-
 				price = Double.parseDouble(priceTextField.getText());
-
-				// TODO: Implement choosing guest and room
-
-				// Reservation r = new Reservation(arrival, departure, room1,
-				// 69);
-				//
-				// if(reservationModel.getReservations().size() == 0){
-				// reservationModel.getReservations().add(r);
-				// } else {
-				// if(isReservationOverlapping(r)){
-				// Alert alert = new Alert(AlertType.ERROR);
-				// alert.setTitle("Error Dialog");
-				// alert.setHeaderText("Reservation Error");
-				// alert.setContentText("Reservations may not overlap with other
-				// reservations!");
-				// alert.showAndWait();
-				// } else {
-				// reservationModel.getReservations().add(r);
-				// }
-				// }
-
+				Reservation r = new Reservation(arrival, departure, roomModel.getCurrentRoom().get(), price, guestModel.getCurrentGuest().get());
+				
+				if(reservationModel.getReservations().size() == 0){
+					reservationModel.getReservations().add(r);
+				} else {
+					if(isReservationOverlapping(r)){
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Error Dialog");
+						alert.setHeaderText("Reservation Error");
+						alert.setContentText("Reservations may not overlap with other reservations!");
+						alert.showAndWait();
+					} else {
+						reservationModel.getReservations().add(r);
+					}
+				}
 				setColumns();
 				setRows();
 				setReservationOnClicked();
@@ -320,20 +334,22 @@ public class ReservationWindowController implements LinnaeusHotelController {
 			Reservation old = reservationModel.getReservations().get(i);
 			LocalDate otherStart = old.getStartDate();
 			LocalDate otherEnd = old.getEndDate();
+			
+			// Check if room is valid
+			if (r.getRoom().getRoomNumber() == old.getRoom().getRoomNumber()
+					&& r.getRoom().getLocation() == old.getRoom().getLocation()) {
+				isOverlapping = true;
+				// Check if date is valid
+				if (!(r.getStartDate().isBefore(otherStart) && r.getEndDate().isBefore(otherStart.plusDays(1))
+						|| r.getStartDate().isAfter(otherEnd.minusDays(1)))) {
 
-			// Check if date is valid
-			if (r.getStartDate().isBefore(otherStart) && r.getEndDate().isBefore(otherStart.plusDays(1))
-					|| r.getStartDate().isAfter(otherEnd.minusDays(1))) {
-
-				// Check if room is valid
-				if (r.getRoom().getRoomNumber() == old.getRoom().getRoomNumber()
-						&& r.getRoom().getLocation() == old.getRoom().getLocation()) {
-
+					isOverlapping = true;
+					break;
+				} else {
 					isOverlapping = false;
 				}
 			} else {
-				isOverlapping = true;
-				break;
+				isOverlapping = false;
 			}
 		}
 		return isOverlapping;
