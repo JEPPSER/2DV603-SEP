@@ -94,8 +94,8 @@
             <HBox spacing="5.0">
                <children>
                   <Button fx:id="deleteReservationButton" mnemonicParsing="false" text="Delete" visible="false" />
-                  <Button mnemonicParsing="false" text="Check in" visible="false" />
-                  <Button mnemonicParsing="false" text="Check out" visible="false" />
+                  <Button fx:id="checkInButton" mnemonicParsing="false" text="Check in" visible="false" />
+                  <Button fx:id="checkOutButton" mnemonicParsing="false" text="Check out" visible="false" />
                </children>
             </HBox>
          </children>

@@ -38,6 +38,28 @@ public class Guest {
 	public Guest() {		
 	}
 	
+	public Guest(int id,String company,String lastName,String firstName,String spouse,String Children, String citizenship,String address,
+			String phone,String mobile,String fax,String email,String favouriteRoom,boolean smoker,LocalDate birthday,ArrayList<Reservation> reservations){
+			  
+		this.id=id;
+		this.company=company;
+		this.lastName=lastName;
+		this.firstName=firstName;
+		this.spouse=spouse;
+		this.children=Children;
+		this.citizenship=citizenship;
+		this.address=address;
+		this.phone=phone;
+		this.mobile=mobile;
+		this.fax=fax;
+		this.email=email;
+		this.favouriteRoom=favouriteRoom;
+		this.smoker=smoker;
+		this.birthday=birthday;
+		this.reservations=reservations;
+			  
+	}
+	
 	//TODO: Return actual bill and not void.
 	public void getBill() {
 		
