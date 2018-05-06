@@ -36,6 +36,7 @@ public class Reservation {
 		this.room = room;
 		this.checkedIn = false;
 		this.guest = guest;
+		this.price = price;
 	}
 	
 	/**
@@ -56,6 +57,14 @@ public class Reservation {
 			}
 		}
 		return false;
+	}
+	
+	public Guest getGuest(){
+		return guest;
+	}
+	
+	public void setGuest(Guest guest){
+		this.guest = guest;
 	}
 
 	/**

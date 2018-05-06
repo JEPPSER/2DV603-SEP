@@ -17,6 +17,8 @@ public class Room {
 	private boolean smoker;
 	private boolean reserved;
 	
+	private int id;
+	
 	public Room(int roomNumber, RoomType type, RoomQuality quality, Location location, boolean smoker, boolean reserved) {
 		this.roomNumber = roomNumber;
 		this.type = type;
@@ -24,6 +26,14 @@ public class Room {
 		this.location = location;
 		this.smoker = smoker;
 		this.reserved = reserved;
+	}
+	
+	public int getId(){
+		return id;
+	}
+	
+	public void setId(int id){
+		this.id = id;
 	}
 
 	/**

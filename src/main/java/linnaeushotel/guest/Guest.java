@@ -12,35 +12,56 @@ import linnaeushotel.reservation.Reservation;
  * @name Guest.java
  */
 public class Guest {
-	
+
 	private int id;
-	
+
 	private String company;
 	private String lastName;
 	private String firstName;
 	private String spouse;
 	private String children;
 	private String citizenship;
-	
+
 	// Guest's private information
 	private String address;
 	private String phone;
 	private String mobile;
 	private String fax;
 	private String email;
-	
+
 	private String favouriteRoom;
 	private boolean smoker;
 	private LocalDate birthday;
-	
+
 	private ArrayList<Reservation> reservations;
-	
-	public Guest() {		
+
+	public Guest() {
 	}
-	
-	//TODO: Return actual bill and not void.
+
+	public Guest(int id, String company, String lastName, String firstName, String spouse, String Children,
+			String citizenship, String address, String phone, String mobile, String fax, String email,
+			String favouriteRoom, boolean smoker, LocalDate birthday) {
+
+		this.id = id;
+		this.company = company;
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.spouse = spouse;
+		this.children = Children;
+		this.citizenship = citizenship;
+		this.address = address;
+		this.phone = phone;
+		this.mobile = mobile;
+		this.fax = fax;
+		this.email = email;
+		this.favouriteRoom = favouriteRoom;
+		this.smoker = smoker;
+		this.birthday = birthday;
+	}
+
+	// TODO: Return actual bill and not void.
 	public void getBill() {
-		
+
 	}
 
 	/**
@@ -58,7 +79,8 @@ public class Guest {
 	}
 
 	/**
-	 * @param citizenship the citizenship to set
+	 * @param citizenship
+	 *            the citizenship to set
 	 */
 	public void setCitizenship(String citizenship) {
 		this.citizenship = citizenship;
@@ -93,35 +115,40 @@ public class Guest {
 	}
 
 	/**
-	 * @param address the address to set
+	 * @param address
+	 *            the address to set
 	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
 	/**
-	 * @param phone the phone to set
+	 * @param phone
+	 *            the phone to set
 	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
 	/**
-	 * @param mobile the mobile to set
+	 * @param mobile
+	 *            the mobile to set
 	 */
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 
 	/**
-	 * @param fax the fax to set
+	 * @param fax
+	 *            the fax to set
 	 */
 	public void setFax(String fax) {
 		this.fax = fax;
 	}
 
 	/**
-	 * @param email the email to set
+	 * @param email
+	 *            the email to set
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -191,63 +218,72 @@ public class Guest {
 	}
 
 	/**
-	 * @param company the company to set
+	 * @param company
+	 *            the company to set
 	 */
 	public void setCompany(String company) {
 		this.company = company;
 	}
 
 	/**
-	 * @param lastName the lastName to set
+	 * @param lastName
+	 *            the lastName to set
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
 	/**
-	 * @param firstName the firstName to set
+	 * @param firstName
+	 *            the firstName to set
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
 	/**
-	 * @param spouse the spouse to set
+	 * @param spouse
+	 *            the spouse to set
 	 */
 	public void setSpouse(String spouse) {
 		this.spouse = spouse;
 	}
 
 	/**
-	 * @param children the children to set
+	 * @param children
+	 *            the children to set
 	 */
 	public void setChildren(String children) {
 		this.children = children;
 	}
 
 	/**
-	 * @param favouriteRoom the favouriteRoom to set
+	 * @param favouriteRoom
+	 *            the favouriteRoom to set
 	 */
 	public void setFavouriteRoom(String favouriteRoom) {
 		this.favouriteRoom = favouriteRoom;
 	}
 
 	/**
-	 * @param smoker the smoker to set
+	 * @param smoker
+	 *            the smoker to set
 	 */
 	public void setSmoker(boolean smoker) {
 		this.smoker = smoker;
 	}
 
 	/**
-	 * @param birthday the birthday to set
+	 * @param birthday
+	 *            the birthday to set
 	 */
 	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
 
 	/**
-	 * @param reservations the reservations to set
+	 * @param reservations
+	 *            the reservations to set
 	 */
 	public void setReservations(ArrayList<Reservation> reservations) {
 		this.reservations = reservations;
@@ -261,7 +297,8 @@ public class Guest {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
