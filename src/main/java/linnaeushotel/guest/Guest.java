@@ -32,9 +32,8 @@ public class Guest {
 	private String favouriteRoom;
 	private boolean smoker;
 	private LocalDate birthday;
-
 	private ArrayList<Reservation> reservations;
-
+  
 	public Guest() {
 	}
 
