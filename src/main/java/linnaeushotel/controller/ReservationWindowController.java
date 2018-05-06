@@ -25,6 +25,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import linnaeushotel.guest.Guest;
 import linnaeushotel.model.GuestModel;
@@ -175,6 +176,7 @@ public class ReservationWindowController implements LinnaeusHotelController {
 					selectRoomWindowController = loader.<SelectRoomWindowController>getController();
 					selectRoomWindowController.initializeRoomModel(this.roomModel);
 					selectRoomWindowController.initializeReservationModel(this.reservationModel);
+					stage.initModality(Modality.APPLICATION_MODAL);
 					stage.showAndWait();
 					if(roomModel.getCurrentRoom().get() != null){
 						Room r = roomModel.getCurrentRoom().get();
@@ -207,6 +209,7 @@ public class ReservationWindowController implements LinnaeusHotelController {
 
 				searchGuestWindowController = loader.<SearchGuestWindowController>getController();
 				searchGuestWindowController.initializeGuestModel(this.guestModel);
+				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.showAndWait();
 				if(guestModel.getCurrentGuest().get() != null){
 					Guest g = guestModel.getCurrentGuest().get();
@@ -319,8 +322,31 @@ public class ReservationWindowController implements LinnaeusHotelController {
 						Reservation res = reservationModel.getReservations().get(rIndex);
 						if (res.getRoom().getRoomNumber() == roomNumber && isWithinReservationTime(res, day)
 								&& res.getRoom().getLocation() == getSelectedLocation()) {
-							System.out.println(res.getStartDate() + ", " + res.getEndDate() + ", "
-									+ res.getRoom().getRoomNumber());
+							reservationModel.setCurrentReservation(res);
+							try {
+								Parent root;
+								URI locationURI = new File("src/main/resources/" + VIEW_SINGLE_RESERVATION_WINDOW).toURI();
+								ViewSingleReservationWindowController viewSingleReservationWindowController; 
+								
+								FXMLLoader loader;
+								loader = new FXMLLoader(locationURI.toURL());
+								root = loader.load();
+
+								Stage stage = new Stage();
+								stage.setTitle("Reservation");
+								stage.setScene(new Scene(root));
+
+								viewSingleReservationWindowController = loader.<ViewSingleReservationWindowController>getController();
+								viewSingleReservationWindowController.initializeReservationModel(this.reservationModel);
+								stage.initModality(Modality.APPLICATION_MODAL);
+								stage.showAndWait();
+								
+								setColumns();
+								setRows();
+								setReservationOnClicked();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 						}
 					}
 				}

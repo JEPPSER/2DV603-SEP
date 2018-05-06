@@ -36,6 +36,11 @@ public class Reservation {
 		this.room = room;
 		this.checkedIn = false;
 		this.guest = guest;
+		this.price = price;
+	}
+	
+	public Guest getGuest(){
+		return guest;
 	}
 	
 	/**
