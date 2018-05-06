@@ -7,6 +7,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import linnaeushotel.DB_manager;
 import linnaeushotel.room.Location;
 import linnaeushotel.room.Room;
 import linnaeushotel.room.RoomQuality;
@@ -23,11 +24,17 @@ public class RoomModel {
 	private final ObjectProperty<Room> currentRoom = new SimpleObjectProperty<>();
 	private final ObservableList<Room> roomModel = FXCollections.observableArrayList();
 	
+	private final DB_manager db = new DB_manager();
+	
 	private LocalDate arrival;
 	private LocalDate departure;
 	private RoomType roomType;
 	private RoomQuality roomQuality;
 	private boolean smoker;
+	
+	public RoomModel(){
+		roomModel.setAll(db.getRooms());
+	}
 	
 	public ObservableList<Room> getRoomModel() {
 		return roomModel;

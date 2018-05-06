@@ -33,8 +33,8 @@ public class MainWindowController implements LinnaeusHotelController {
 				stage.setScene(new Scene(root));
 				
 				guestWindowController = loader.<GuestWindowController>getController();
-				
-				stage.initModality(Modality.APPLICATION_MODAL);
+        
+        stage.initModality(Modality.APPLICATION_MODAL);
 				stage.show();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -54,7 +54,8 @@ public class MainWindowController implements LinnaeusHotelController {
 				
 				FXMLLoader loader = new FXMLLoader(location.toURL());
 				reservationWindowController = loader.<ReservationWindowController>getController();
-				stage.show();
+				stage.initModality(Modality.APPLICATION_MODAL);
+				stage.showAndWait();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
