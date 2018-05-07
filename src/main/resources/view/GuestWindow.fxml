@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="550.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linnaeushotel.controller.GuestWindowController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="352.0" prefWidth="550.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linnaeushotel.controller.GuestWindowController">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
          <children>
@@ -44,18 +44,6 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
                         <TextArea fx:id="addressTextField" prefHeight="50.0" prefWidth="200.0" />
                      </children>
-                  </HBox>
-                  <HBox spacing="10.0">
-                     <children>
-                        <RadioButton fx:id="privateRadioButton" mnemonicParsing="false" text="Private">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="Group" />
-                           </toggleGroup></RadioButton>
-                        <RadioButton fx:id="businessRadioButton" mnemonicParsing="false" text="Business" toggleGroup="$Group" />
-                     </children>
-                     <padding>
-                        <Insets left="70.0" />
-                     </padding>
                   </HBox>
                   <HBox spacing="23.0">
                      <children>

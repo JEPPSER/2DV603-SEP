@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="350.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linnaeushotel.controller.AdditionalDataWindowController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="350.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="linnaeushotel.controller.AdditionalDataWindowController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
@@ -45,15 +45,6 @@
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail" />
             <TextField fx:id="emailTextField" />
-         </children>
-      </HBox>
-      <HBox spacing="10.0">
-         <children>
-            <RadioButton fx:id="privateRadioButton" mnemonicParsing="false" text="Private">
-               <toggleGroup>
-                  <ToggleGroup fx:id="Group1" />
-               </toggleGroup></RadioButton>
-            <RadioButton fx:id="businessRadioButton" mnemonicParsing="false" text="Business" toggleGroup="$Group1" />
          </children>
       </HBox>
       <HBox spacing="100.0">

@@ -15,7 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -42,8 +41,6 @@ public class GuestWindowController implements LinnaeusHotelController {
 	@FXML public TextField firstNameTextField;
 	@FXML public TextArea addressTextField;
 	@FXML public ToggleGroup Group;
-	@FXML public RadioButton privateRadioButton;
-	@FXML public RadioButton businessRadioButton;
 	@FXML public DatePicker birthdayDatePicker;
 	@FXML public TextField citizenshipTextField;
 	@FXML public Button addDataButton;
@@ -298,10 +295,6 @@ public class GuestWindowController implements LinnaeusHotelController {
 		guest.setFirstName(firstNameTextField.getText());
 		guest.setAddress(addressTextField.getText());
 		
-		
-		privateRadioButton.setSelected(false);
-		businessRadioButton.setSelected(false);
-		
 		guest.setBirthday(birthdayDatePicker.getValue());
 		guest.setCitizenship(citizenshipTextField.getText());
 	}
@@ -336,8 +329,6 @@ public class GuestWindowController implements LinnaeusHotelController {
 		lastNameTextField.clear();
 		firstNameTextField.clear();
 		addressTextField.clear();
-		privateRadioButton.setSelected(false);
-		businessRadioButton.setSelected(false);
 		birthdayDatePicker.setValue(null);
 		citizenshipTextField.clear();
 		reservationsListView.getItems().clear();

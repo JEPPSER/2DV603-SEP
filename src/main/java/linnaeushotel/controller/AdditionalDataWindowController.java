@@ -26,8 +26,6 @@ public class AdditionalDataWindowController implements LinnaeusHotelController {
 	@FXML public TextField mobileTextField;
 	@FXML public TextField faxTextField;
 	@FXML public TextField emailTextField;
-	@FXML public RadioButton privateRadioButton;
-	@FXML public RadioButton businessRadioButton;
 	@FXML public TextField favouriteRoomTextField;
 	@FXML public RadioButton smokerYesRadioButton;
 	@FXML public RadioButton smokerNoRadioButton;
