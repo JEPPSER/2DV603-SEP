@@ -15,12 +15,10 @@ public class Reservation {
 	
 	private LocalDate startDate;
 	private LocalDate endDate;
-	
-	private Guest guest;
-	
+	private Guest guest;	
 	private Room room;
-	
 	private boolean checkedIn;
+	private int id;
 	
 	//TODO: Do not allow negative price. - Oskar Mendel 2018-05-01
 	private double price;
@@ -57,6 +55,14 @@ public class Reservation {
 			}
 		}
 		return false;
+	}
+	
+	public int getId(){
+		return id;
+	}
+	
+	public void setId(int id){
+		this.id = id;
 	}
 	
 	public Guest getGuest(){
