@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.util.ArrayList;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -86,9 +85,9 @@ public class ReservationWindowController implements LinnaeusHotelController {
 	@FXML public Button showButton;
 	@FXML public GridPane reservationsGridPane;
 
-	private ReservationModel reservationModel = new ReservationModel();
-	private RoomModel roomModel = new RoomModel();
-	private GuestModel guestModel = new GuestModel();
+	private ReservationModel reservationModel;
+	private RoomModel roomModel;
+	private GuestModel guestModel;
 
 	@FXML
 	public void initialize() {
@@ -126,10 +125,6 @@ public class ReservationWindowController implements LinnaeusHotelController {
 			roomModel.getCurrentRoom().set(null);
 			priceTextField.setText("");
 		});
-
-		setColumns();
-		setRows();
-		setReservationOnClicked();
 
 		showButton.setOnAction(c -> {
 			setColumns();
@@ -228,6 +223,8 @@ public class ReservationWindowController implements LinnaeusHotelController {
 				
 				if(reservationModel.getReservations().size() == 0){
 					reservationModel.getReservations().add(r);
+					guestModel.getCurrentGuest().get().getReservations().add(r);
+					guestModel.updateGuest(guestModel.getCurrentGuest().get());
 				} else {
 					if(isReservationOverlapping(r)){
 						Alert alert = new Alert(AlertType.ERROR);
@@ -237,6 +234,8 @@ public class ReservationWindowController implements LinnaeusHotelController {
 						alert.showAndWait();
 					} else {
 						reservationModel.getReservations().add(r);
+						guestModel.getCurrentGuest().get().getReservations().add(r);
+						guestModel.updateGuest(guestModel.getCurrentGuest().get());
 					}
 				}
 				setColumns();
@@ -494,6 +493,10 @@ public class ReservationWindowController implements LinnaeusHotelController {
 			throw new IllegalStateException("Model can only be initialized once");
 		}
 		this.roomModel = roomModel;
+		
+		setColumns();
+		setRows();
+		setReservationOnClicked();
 	}
 	
 	public void initializeGuestModel(GuestModel guestModel) {

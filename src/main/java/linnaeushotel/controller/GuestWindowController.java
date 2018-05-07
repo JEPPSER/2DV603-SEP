@@ -23,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import linnaeushotel.DB_manager;
 import linnaeushotel.guest.Guest;
 import linnaeushotel.model.GuestModel;
 import linnaeushotel.reservation.Reservation;
@@ -54,14 +55,13 @@ public class GuestWindowController implements LinnaeusHotelController {
 	@FXML public Button checkInButton;
 	@FXML public Button checkOutButton;
 	
+	private DB_manager db;
 	private GuestModel guestModel;
 	private boolean guestSelected = false;
 	private Reservation selectedReservation;
 	
 	@FXML
 	public void initialize() {
-		this.initializeGuestModel(new GuestModel());
-		
 		reservationsListView.setCellFactory(new Callback<ListView<Reservation>, ListCell<Reservation>>() {
 			@Override
 			public ListCell<Reservation> call(ListView<Reservation> param) {
@@ -245,9 +245,10 @@ public class GuestWindowController implements LinnaeusHotelController {
 			this.reservationsListView.getItems().remove(i);
 			
 			this.selectedReservation = null;
-			//TODO: Update the guests reservations in DB.
 			
 			reservationsListView.getSelectionModel().clearSelection();
+			
+			this.guestModel.updateGuest(g);
 			
 			deleteReservationButton.setVisible(false);
 			checkInButton.setVisible(false);
@@ -255,14 +256,26 @@ public class GuestWindowController implements LinnaeusHotelController {
 		});
 		
 		checkInButton.setOnAction(c -> {
-			//TODO: Update the reservation in DB.
+			Guest g = this.guestModel.getCurrentGuest().get();
+			int i = g.getReservations().indexOf(this.selectedReservation);
+			Reservation r = g.getReservations().get(i);
+			r.setCheckedIn(true);
+			
+			this.guestModel.updateGuest(g);
+			
 			this.selectedReservation.setCheckedIn(true);
 			checkInButton.setVisible(false);
 			checkOutButton.setVisible(true);
 		});
 		
 		checkOutButton.setOnAction(c -> {
-			//TODO: Update the reservation in DB.
+			Guest g = this.guestModel.getCurrentGuest().get();
+			int i = g.getReservations().indexOf(this.selectedReservation);
+			Reservation r = g.getReservations().get(i);
+			r.setCheckedIn(false);
+			
+			this.guestModel.updateGuest(g);
+			
 			this.selectedReservation.setCheckedIn(false);
 			checkOutButton.setVisible(false);
 			checkInButton.setVisible(true);
@@ -366,5 +379,13 @@ public class GuestWindowController implements LinnaeusHotelController {
 		}
 		
 		this.guestModel = guestModel;
+	}
+	
+	public void initializeDB(DB_manager db) {
+		if (this.db != null) {
+			throw new IllegalStateException("DB can only be initialize once");
+		}
+		
+		this.db = db;
 	}
 }

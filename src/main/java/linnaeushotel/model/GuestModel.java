@@ -20,9 +20,10 @@ public class GuestModel {
 	private final ObjectProperty<Guest> currentGuest = new SimpleObjectProperty<>();
 	private final ObservableList<Guest> guestModel = FXCollections.observableArrayList();
 	
-	private final DB_manager db = new DB_manager();
+	private final DB_manager db;
 	
-	public GuestModel() {
+	public GuestModel(DB_manager db) {
+		this.db = db;
 		guestModel.setAll(db.getGuests());
 	}
 	
