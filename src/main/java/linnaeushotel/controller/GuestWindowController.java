@@ -245,9 +245,10 @@ public class GuestWindowController implements LinnaeusHotelController {
 			this.reservationsListView.getItems().remove(i);
 			
 			this.selectedReservation = null;
-			//TODO: Update the guests reservations in DB.
 			
 			reservationsListView.getSelectionModel().clearSelection();
+			
+			this.guestModel.updateGuest(g);
 			
 			deleteReservationButton.setVisible(false);
 			checkInButton.setVisible(false);
@@ -255,14 +256,26 @@ public class GuestWindowController implements LinnaeusHotelController {
 		});
 		
 		checkInButton.setOnAction(c -> {
-			//TODO: Update the reservation in DB.
+			Guest g = this.guestModel.getCurrentGuest().get();
+			int i = g.getReservations().indexOf(this.selectedReservation);
+			Reservation r = g.getReservations().get(i);
+			r.setCheckedIn(true);
+			
+			this.guestModel.updateGuest(g);
+			
 			this.selectedReservation.setCheckedIn(true);
 			checkInButton.setVisible(false);
 			checkOutButton.setVisible(true);
 		});
 		
 		checkOutButton.setOnAction(c -> {
-			//TODO: Update the reservation in DB.
+			Guest g = this.guestModel.getCurrentGuest().get();
+			int i = g.getReservations().indexOf(this.selectedReservation);
+			Reservation r = g.getReservations().get(i);
+			r.setCheckedIn(false);
+			
+			this.guestModel.updateGuest(g);
+			
 			this.selectedReservation.setCheckedIn(false);
 			checkOutButton.setVisible(false);
 			checkInButton.setVisible(true);
