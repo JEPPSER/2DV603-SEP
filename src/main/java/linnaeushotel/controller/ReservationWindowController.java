@@ -223,6 +223,8 @@ public class ReservationWindowController implements LinnaeusHotelController {
 				
 				if(reservationModel.getReservations().size() == 0){
 					reservationModel.getReservations().add(r);
+					guestModel.getCurrentGuest().get().getReservations().add(r);
+					guestModel.updateGuest(guestModel.getCurrentGuest().get());
 				} else {
 					if(isReservationOverlapping(r)){
 						Alert alert = new Alert(AlertType.ERROR);
@@ -232,6 +234,8 @@ public class ReservationWindowController implements LinnaeusHotelController {
 						alert.showAndWait();
 					} else {
 						reservationModel.getReservations().add(r);
+						guestModel.getCurrentGuest().get().getReservations().add(r);
+						guestModel.updateGuest(guestModel.getCurrentGuest().get());
 					}
 				}
 				setColumns();
