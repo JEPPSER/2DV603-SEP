@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import linnaeushotel.DB_manager;
-import linnaeushotel.room.Location;
 import linnaeushotel.room.Room;
 import linnaeushotel.room.RoomQuality;
 import linnaeushotel.room.RoomType;
