@@ -20,9 +20,10 @@ public class ReservationModel {
 	private final ObjectProperty<Reservation> currentReservation = new SimpleObjectProperty<>();
 	private final ObservableList<Reservation> reservationModel = FXCollections.observableArrayList();
 	
-	private final DB_manager db = new DB_manager();
+	private final DB_manager db;
 	
-	public ReservationModel(){
+	public ReservationModel(DB_manager db){
+		this.db = db;
 		reservationModel.setAll(db.getReservations());
 	}
 	

@@ -26,12 +26,15 @@ public class StageManager {
 	
 	private Stage mainStage;
 	
+	private static DB_manager db;
+	
 	private StageManager() {
 	}
 	
 	public static StageManager getInstance() {
 		if (instance == null) {
 			instance = new StageManager();
+			db = new DB_manager();
 		}
 		
 		return instance;
@@ -57,8 +60,10 @@ public class StageManager {
 		mainStage = primaryStage;
 		mainStage.setTitle("LinnaeusHotel");
 		
-		VBox mainWindowController = (VBox) loadLayout(LinnaeusHotelController.MAIN_WINDOW);
-		Scene mainScene = new Scene(mainWindowController);
+		VBox mainWindow = (VBox) loadLayout(LinnaeusHotelController.MAIN_WINDOW);
+		getMainWindowController().initializeDB(db);
+		
+		Scene mainScene = new Scene(mainWindow);
 		
 		mainStage.setScene(mainScene);
 		mainStage.show();

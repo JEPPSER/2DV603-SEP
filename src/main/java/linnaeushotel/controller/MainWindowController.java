@@ -11,11 +11,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import linnaeushotel.DB_manager;
+import linnaeushotel.model.GuestModel;
+import linnaeushotel.model.ReservationModel;
+import linnaeushotel.model.RoomModel;
 
 public class MainWindowController implements LinnaeusHotelController {
 	
 	@FXML public Button guestManagementButton;
 	@FXML public Button reservationManagementButton;
+	
+	private DB_manager db;
 	
 	@FXML public void initialize() {
 		
@@ -33,8 +39,9 @@ public class MainWindowController implements LinnaeusHotelController {
 				stage.setScene(new Scene(root));
 				
 				guestWindowController = loader.<GuestWindowController>getController();
+				guestWindowController.initializeGuestModel(new GuestModel(this.db));
         
-        stage.initModality(Modality.APPLICATION_MODAL);
+				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.show();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -43,22 +50,35 @@ public class MainWindowController implements LinnaeusHotelController {
 		
 		reservationManagementButton.setOnAction(c -> {
 			Parent root;
+			URI location = new File("src/main/resources/" + RESERVATION_WINDOW).toURI();
 			ReservationWindowController reservationWindowController;
 			
 			try {
-				URI location = new File("src/main/resources/" + RESERVATION_WINDOW).toURI();
-				root = FXMLLoader.load(location.toURL());
+				FXMLLoader loader = new FXMLLoader(location.toURL());
+				root = loader.load();
+				
 				Stage stage = new Stage();
 				stage.setTitle("Reservation Management");
 				stage.setScene(new Scene(root));
 				
-				FXMLLoader loader = new FXMLLoader(location.toURL());
 				reservationWindowController = loader.<ReservationWindowController>getController();
+				reservationWindowController.initializeGuestModel(new GuestModel(this.db));
+				reservationWindowController.initializeReservationModel(new ReservationModel(this.db));
+				reservationWindowController.initializeRoomModel(new RoomModel(this.db));
+				
 				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.showAndWait();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		});
+	}
+	
+	public void initializeDB(DB_manager db) {
+		if (this.db != null) {
+			throw new IllegalStateException("DB can only be initialize once");
+		}
+		
+		this.db = db;
 	}
 }

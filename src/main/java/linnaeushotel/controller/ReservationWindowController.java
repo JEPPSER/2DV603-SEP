@@ -86,9 +86,9 @@ public class ReservationWindowController implements LinnaeusHotelController {
 	@FXML public Button showButton;
 	@FXML public GridPane reservationsGridPane;
 
-	private ReservationModel reservationModel = new ReservationModel();
-	private RoomModel roomModel = new RoomModel();
-	private GuestModel guestModel = new GuestModel();
+	private ReservationModel reservationModel;
+	private RoomModel roomModel;
+	private GuestModel guestModel;
 
 	@FXML
 	public void initialize() {
@@ -126,10 +126,6 @@ public class ReservationWindowController implements LinnaeusHotelController {
 			roomModel.getCurrentRoom().set(null);
 			priceTextField.setText("");
 		});
-
-		setColumns();
-		setRows();
-		setReservationOnClicked();
 
 		showButton.setOnAction(c -> {
 			setColumns();
@@ -494,6 +490,10 @@ public class ReservationWindowController implements LinnaeusHotelController {
 			throw new IllegalStateException("Model can only be initialized once");
 		}
 		this.roomModel = roomModel;
+		
+		setColumns();
+		setRows();
+		setReservationOnClicked();
 	}
 	
 	public void initializeGuestModel(GuestModel guestModel) {
