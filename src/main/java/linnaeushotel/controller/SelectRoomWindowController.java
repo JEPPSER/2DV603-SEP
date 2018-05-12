@@ -46,33 +46,31 @@ public class SelectRoomWindowController implements LinnaeusHotelController {
 	private RoomQuality roomQuality;
 	private boolean smoker;
 	private ToggleGroup validGroup;
-	private Room selectedRoom;
-
+	
 	@FXML
 	public void initialize() {
 		validGroup = new ToggleGroup();
 		
 		vaxjoRadioButton.setOnAction(c-> {
-			selectedRoom = null;
+			roomModel.setCurrentRoom(null);
 			ArrayList<Room> validRooms = getValidRooms();
 			setRoomContainer(validRooms);
 		});
 		
 		kalmarRadioButton.setOnAction(c-> {
-			selectedRoom = null;
+			roomModel.setCurrentRoom(null);
 			ArrayList<Room> validRooms = getValidRooms();
 			setRoomContainer(validRooms);
 		});
 		
 		okButton.setOnAction(c -> {
-			if(selectedRoom == null){
+			if(roomModel.getCurrentRoom().get() == null){
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Error Dialog");
 				alert.setHeaderText("Room Selection Error");
 				alert.setContentText("A room must be selected!");
 				alert.showAndWait();
 			} else {
-				roomModel.setCurrentRoom(selectedRoom);
 				Stage stage = (Stage) okButton.getScene().getWindow();
 				stage.close();
 			}
@@ -104,6 +102,7 @@ public class SelectRoomWindowController implements LinnaeusHotelController {
 		
 		ArrayList<Room> validRooms = getValidRooms();
 		setRoomContainer(validRooms);
+		roomModel.setCurrentRoom(null);
 	}
 	
 	private ArrayList<Room> getValidRooms(){
@@ -139,7 +138,7 @@ public class SelectRoomWindowController implements LinnaeusHotelController {
 			roomContainer.getChildren().add(rb);
 			rb.setToggleGroup(validGroup);
 			rb.setOnAction(c -> {
-				selectedRoom = room;
+				roomModel.setCurrentRoom(room);
 			});
 		}
 	}
