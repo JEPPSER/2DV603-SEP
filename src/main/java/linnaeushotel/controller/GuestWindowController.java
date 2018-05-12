@@ -51,6 +51,7 @@ public class GuestWindowController implements LinnaeusHotelController {
 	@FXML public Button deleteReservationButton;
 	@FXML public Button checkInButton;
 	@FXML public Button checkOutButton;
+	@FXML public Button printBillButton;
 	
 	private DB_manager db;
 	private GuestModel guestModel;
@@ -88,6 +89,7 @@ public class GuestWindowController implements LinnaeusHotelController {
 					selectedReservation = r;
 					
 					deleteReservationButton.setVisible(true);
+					printBillButton.setVisible(true);
 					
 					if (r.isCheckedIn()) {
 						checkOutButton.setVisible(true);					
@@ -98,6 +100,7 @@ public class GuestWindowController implements LinnaeusHotelController {
 					deleteReservationButton.setVisible(false);
 					checkInButton.setVisible(false);
 					checkOutButton.setVisible(false);
+					printBillButton.setVisible(false);
 				}
 			}
 		});

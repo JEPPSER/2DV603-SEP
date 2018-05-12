@@ -86,6 +86,11 @@
                   <Button fx:id="checkOutButton" mnemonicParsing="false" text="Check out" visible="false" />
                </children>
             </HBox>
+            <HBox>
+               <children>
+                  <Button fx:id="printBillButton" mnemonicParsing="false" text="Print Bill" visible="false" />
+               </children>
+            </HBox>
          </children>
          <padding>
             <Insets top="30.0" />
