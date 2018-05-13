@@ -196,7 +196,7 @@ public class DB_manager {
 					Location c = Location.valueOf((String) roomObject.get("Location"));
 
 					Room room = new Room(((int) roomObject.get("roomNumber")), b, a, c,
-							(boolean) roomObject.get("smoker"), (boolean) roomObject.get("reserved"));
+							(boolean) roomObject.get("smoker"), (boolean) roomObject.get("reserved"),(int)roomObject.get("Adjointed"));
 					Reservation r = new Reservation(startDate, endDate, room, price, g);
 					reservations.add(r);
 				}
@@ -251,7 +251,7 @@ public class DB_manager {
 				Location c = Location.valueOf((String) obj.get("Location"));
 
 				Room g = new Room(((int) obj.get("roomNumber")), b, a, c, (boolean) obj.get("smoker"),
-						(boolean) obj.get("reserved"));
+						(boolean) obj.get("reserved"),(int)obj.get("Adjointed"));
 				roomList.add(g);
 			}
 
@@ -281,7 +281,8 @@ public class DB_manager {
 			DBObject room = new BasicDBObject("roomNumber", g.getRoomNumber())
 					.append("RoomType", g.getType().toString()).append("RoomQuality", g.getQuality().toString())
 					.append("Location", g.getLocation().toString()).append("smoker", g.isSmoker())
-					.append("reserved", reservationStatus);
+					.append("reserved", reservationStatus)
+					.append("Adjointed",g.getAdjoint());
 
 			DBObject query = new BasicDBObject("roomNumber", g.getRoomNumber());
 			collection.update(query, room);
@@ -303,7 +304,8 @@ public class DB_manager {
 					.append("RoomType", g.getRoom().getType().toString())
 					.append("RoomQuality", g.getRoom().getQuality().toString())
 					.append("Location", g.getRoom().getLocation().toString()).append("smoker", g.getRoom().isSmoker())
-					.append("reserved", g.getRoom().isReserved());
+					.append("reserved", g.getRoom().isReserved())
+					.append("Adjointed",g.getRoom().getAdjoint());
 			DBObject guest = new BasicDBObject("_id", g.getGuest().getId())
 					.append("firstName", g.getGuest().getFirstName()).append("lastName", g.getGuest().getLastName())
 					// .append("Reservations",g.getGuest().getReservations())
@@ -350,7 +352,7 @@ public class DB_manager {
 				Location c = Location.valueOf((String) ((DBObject) obj.get("room")).get("Location"));
 				Room g = new Room(((int) ((DBObject) obj.get("room")).get("roomNumber")), b, a, c,
 						(boolean) ((DBObject) obj.get("room")).get("smoker"),
-						(boolean) ((DBObject) obj.get("room")).get("reserved"));
+						(boolean) ((DBObject) obj.get("room")).get("reserved"),(int)((DBObject) obj.get("room")).get("Adjointed"));
 
 				Date birthday = (Date) (((DBObject) obj.get("guest")).get("birthday"));
 
@@ -405,7 +407,8 @@ public class DB_manager {
 					.append("RoomType", g.getRoom().getType().toString())
 					.append("RoomQuality", g.getRoom().getQuality().toString())
 					.append("Location", g.getRoom().getLocation().toString()).append("smoker", g.getRoom().isSmoker())
-					.append("reserved", g.getRoom().isReserved());
+					.append("reserved", g.getRoom().isReserved())
+					.append("Adjointed",g.getRoom().getAdjoint());
 			DBObject guest = new BasicDBObject("_id", g.getGuest().getId())
 					.append("firstName", g.getGuest().getFirstName()).append("lastName", g.getGuest().getLastName())
 					// .append("Reservations",g.getGuest().getReservations())
