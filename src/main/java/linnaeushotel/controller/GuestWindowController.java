@@ -2,6 +2,7 @@ package linnaeushotel.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URI;
 
 import javafx.event.EventHandler;
@@ -57,6 +58,8 @@ public class GuestWindowController implements LinnaeusHotelController {
 	private GuestModel guestModel;
 	private boolean guestSelected = false;
 	private Reservation selectedReservation;
+	
+	static final String BILL_PATH = "bill/";
 	
 	@FXML
 	public void initialize() {
@@ -279,6 +282,22 @@ public class GuestWindowController implements LinnaeusHotelController {
 			this.selectedReservation.setCheckedIn(false);
 			checkOutButton.setVisible(false);
 			checkInButton.setVisible(true);
+		});
+		
+		printBillButton.setOnAction(c -> {
+			Guest g = this.guestModel.getCurrentGuest().get();
+			int i = g.getReservations().indexOf(this.selectedReservation);
+			Reservation r = g.getReservations().get(i);
+			try {
+				PrintWriter writer = new PrintWriter(BILL_PATH + g.getFirstName() + "-bill.txt", "UTF-8");
+				writer.println(r.getGuest().getFirstName() + " " + r.getGuest().getLastName());
+				writer.println(r.getStartDate() + " to " + r.getEndDate());
+				writer.println("Room: " + r.getRoom().getRoomNumber());
+				writer.println("Price: " + r.getPrice());
+				writer.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		});
 	}
 	
