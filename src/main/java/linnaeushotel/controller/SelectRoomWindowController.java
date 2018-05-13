@@ -131,10 +131,18 @@ public class SelectRoomWindowController implements LinnaeusHotelController {
 	
 	private void setRoomContainer(ArrayList<Room> rooms){
 		roomContainer.getChildren().clear();
-		for(int i = 0; i < rooms.size(); i++){
+ 		for(int i = 0; i < rooms.size(); i++){
 			RadioButton rb = new RadioButton();
 			Room room = rooms.get(i);
 			rb.setText(String.valueOf(rooms.get(i).getRoomNumber()));
+			String str = "";
+			if(rooms.get(i).getAdjoinedRoom() == 0){
+				str = String.valueOf(rooms.get(i).getRoomNumber());
+			} else {
+				str = String.valueOf(rooms.get(i).getRoomNumber()) + 
+						" (adjoined with " + String.valueOf(rooms.get(i).getAdjoinedRoom()) + ")";
+			}
+			rb.setText(str);
 			roomContainer.getChildren().add(rb);
 			rb.setToggleGroup(validGroup);
 			rb.setOnAction(c -> {
