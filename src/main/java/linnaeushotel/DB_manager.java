@@ -41,7 +41,6 @@ public class DB_manager {
 			collection = db.getCollection("guest");
 			g.setId((int) collection.getCount() + 1);
 
-			// fixa så du har defualt id ifrån databasen
 			DBObject guest = new BasicDBObject("_id", g.getId()).append("firstName", g.getFirstName())
 					.append("lastName", g.getLastName()).append("address", g.getAddress()).append("phone", g.getPhone())
 					.append("mobile", g.getMobile()).append("fax", g.getFax()).append("email", g.getEmail())
@@ -109,7 +108,6 @@ public class DB_manager {
 
 			DBObject guest = new BasicDBObject("_id", g.getId()).append("firstName", g.getFirstName())
 					.append("lastName", g.getLastName())
-					// .append("Reservations", g.getReservations())
 					.append("address", g.getAddress()).append("phone", g.getPhone()).append("mobile", g.getMobile())
 					.append("fax", g.getFax()).append("email", g.getEmail())
 					.append("favouriteRoom", g.getFavouriteRoom()).append("smoker", g.isSmoker())
@@ -165,7 +163,6 @@ public class DB_manager {
 
 				DBObject obj = cursor.next();
 				Guest g = new Guest();
-				// fixa default id till sträng osv
 				g.setId((int) obj.get("_id"));
 				g.setFirstName((String) obj.get("firstName"));
 				g.setLastName((String) obj.get("lastName"));
@@ -202,7 +199,6 @@ public class DB_manager {
 				}
 
 				g.setReservations(reservations);
-				// g.setReservations((ArrayList<Reservation>)obj.get("Reservations"));
 				g.setAddress((String) obj.get("address"));
 				g.setPhone((String) obj.get("phone"));
 				g.setMobile((String) obj.get("mobile"));
@@ -308,7 +304,6 @@ public class DB_manager {
 					.append("Adjointed",g.getRoom().getAdjoinedRoom());
 			DBObject guest = new BasicDBObject("_id", g.getGuest().getId())
 					.append("firstName", g.getGuest().getFirstName()).append("lastName", g.getGuest().getLastName())
-					// .append("Reservations",g.getGuest().getReservations())
 					.append("address", g.getGuest().getAddress()).append("phone", g.getGuest().getPhone())
 					.append("mobile", g.getGuest().getMobile()).append("fax", g.getGuest().getFax())
 					.append("email", g.getGuest().getEmail()).append("favouriteRoom", g.getGuest().getFavouriteRoom())
@@ -411,7 +406,6 @@ public class DB_manager {
 					.append("Adjointed",g.getRoom().getAdjoinedRoom());
 			DBObject guest = new BasicDBObject("_id", g.getGuest().getId())
 					.append("firstName", g.getGuest().getFirstName()).append("lastName", g.getGuest().getLastName())
-					// .append("Reservations",g.getGuest().getReservations())
 					.append("address", g.getGuest().getAddress()).append("phone", g.getGuest().getPhone())
 					.append("mobile", g.getGuest().getMobile()).append("fax", g.getGuest().getFax())
 					.append("email", g.getGuest().getEmail()).append("favouriteRoom", g.getGuest().getFavouriteRoom())

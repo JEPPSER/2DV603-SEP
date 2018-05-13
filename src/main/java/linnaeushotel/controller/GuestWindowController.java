@@ -228,10 +228,6 @@ public class GuestWindowController implements LinnaeusHotelController {
 						!guestModel.getCurrentGuest().get().getLastName().isEmpty()) {
 					this.guestModel.getGuests().add(guestModel.getCurrentGuest().get());
 					
-					//TODO: Temporarily set id manually. - Oskar Mendel 2018-05-04
-					int i = this.guestModel.getGuests().indexOf(this.guestModel.getCurrentGuest().get());
-					this.guestModel.getCurrentGuest().get().setId(i+1);
-					
 					this.guestModel.addGuest(this.guestModel.getCurrentGuest().get());
 				} else {
 					displayErrorDialog("Insufficient Information", 
@@ -321,9 +317,7 @@ public class GuestWindowController implements LinnaeusHotelController {
 		guest.setCitizenship(citizenshipTextField.getText());
 	}
 	
-	/**
-	 * TODO: Find a better name for this method. - Oskar Mendel 2018-05-03
-	 * 
+	/** 
 	 * Fills in the UI with data from the currentGuest in the guest model.
 	 */
 	private void fillUIGuestData() {

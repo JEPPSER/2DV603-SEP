@@ -58,11 +58,6 @@ public class Guest {
 		this.birthday = birthday;
 	}
 
-	// TODO: Return actual bill and not void.
-	public void getBill() {
-
-	}
-
 	/**
 	 * @return the address
 	 */
