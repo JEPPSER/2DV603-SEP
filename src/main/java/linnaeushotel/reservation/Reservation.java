@@ -20,13 +20,11 @@ public class Reservation {
 	private boolean checkedIn;
 	private int id;
 	
-	//TODO: Do not allow negative price. - Oskar Mendel 2018-05-01
 	private double price;
 	
 	public Reservation(LocalDate startDate, LocalDate endDate, Room room, double price, Guest guest) {
 		if (price < 0) {
-			//TODO: What kind of exception / error do we want here? - Oskar Mendel 2018-05-01
-			throw new RuntimeException("Negative price");
+			throw new IllegalArgumentException("Negative price");
 		}
 		
 		this.startDate = startDate;

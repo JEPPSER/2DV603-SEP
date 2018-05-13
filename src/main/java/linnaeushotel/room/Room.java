@@ -19,13 +19,20 @@ public class Room {
 	
 	private int id;
 	
-	public Room(int roomNumber, RoomType type, RoomQuality quality, Location location, boolean smoker, boolean reserved) {
+	private int adjoinedRoom;
+	
+	public Room(int roomNumber, RoomType type, RoomQuality quality, Location location, boolean smoker, boolean reserved, int adjoinedRoom) {
 		this.roomNumber = roomNumber;
 		this.type = type;
 		this.quality = quality;
 		this.location = location;
 		this.smoker = smoker;
 		this.reserved = reserved;
+		this.adjoinedRoom = adjoinedRoom;
+	}
+	
+	public int getAdjoinedRoom(){
+		return adjoinedRoom;
 	}
 	
 	public int getId(){
