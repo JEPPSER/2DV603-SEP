@@ -45,4 +45,12 @@ public class ReservationModel {
 	public void addReservation(Reservation r){
 		db.insertReservation(r);
 	}
+	
+	public void deleteReservation(Reservation r){
+		db.deleteReservation(r);
+	}
+	
+	public void updateReservation(Reservation r){
+		db.updateReservation(r);
+	}
 }

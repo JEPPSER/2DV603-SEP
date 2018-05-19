@@ -66,7 +66,8 @@ public class DB_manager {
 							.append("endDate", g.getReservations().get(i).getEndDate())
 
 							.append("room", roomObject).append("price", g.getReservations().get(i).getPrice())
-							.append("checked in", g.getReservations().get(i).isCheckedIn());
+							.append("checked in", g.getReservations().get(i).isCheckedIn())
+							.append("Adjointed", g.getReservations().get(i).getRoom().getAdjoinedRoom());
 
 					reservs.add((BasicDBObject) test);
 					i++;
@@ -126,7 +127,8 @@ public class DB_manager {
 							.append("roomNumber", room.getRoomNumber()).append("RoomType", room.getType().toString())
 							.append("RoomQuality", room.getQuality().toString())
 							.append("Location", room.getLocation().toString()).append("smoker", room.isSmoker())
-							.append("reserved", room.isReserved());
+							.append("reserved", room.isReserved())
+							.append("Adjointed", g.getReservations().get(i).getRoom().getAdjoinedRoom());
 
 					DBObject test = new BasicDBObject("startDate", g.getReservations().get(i).getStartDate())
 							.append("endDate", g.getReservations().get(i).getEndDate())
@@ -195,6 +197,7 @@ public class DB_manager {
 					Room room = new Room(((int) roomObject.get("roomNumber")), b, a, c,
 							(boolean) roomObject.get("smoker"), (boolean) roomObject.get("reserved"),(int)roomObject.get("Adjointed"));
 					Reservation r = new Reservation(startDate, endDate, room, price, g);
+					r.setCheckedIn((boolean) reservationObject.get("checked in"));
 					reservations.add(r);
 				}
 
@@ -375,6 +378,8 @@ public class DB_manager {
 						(LocalDate) ed.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), g,
 						(double) obj.get("price"), guest);
 
+				r.setCheckedIn((boolean) obj.get("checked in"));
+				r.setId((int) obj.get("_id"));
 				reservationList.add(r);
 			}
 

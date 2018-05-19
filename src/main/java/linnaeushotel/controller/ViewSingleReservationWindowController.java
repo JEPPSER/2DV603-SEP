@@ -56,6 +56,7 @@ public class ViewSingleReservationWindowController implements LinnaeusHotelContr
 		
 		deleteButton.setOnAction(c -> {
 			reservationModel.getReservations().remove(r);
+			reservationModel.deleteReservation(r);
 			reservationModel.setCurrentReservation(null);
 			Stage stage = (Stage) deleteButton.getScene().getWindow();
 			stage.close();

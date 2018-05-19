@@ -223,6 +223,7 @@ public class ReservationWindowController implements LinnaeusHotelController {
 				
 				if(reservationModel.getReservations().size() == 0){
 					reservationModel.getReservations().add(r);
+					reservationModel.addReservation(r);
 					guestModel.getCurrentGuest().get().getReservations().add(r);
 					guestModel.updateGuest(guestModel.getCurrentGuest().get());
 				} else {
@@ -234,6 +235,7 @@ public class ReservationWindowController implements LinnaeusHotelController {
 						alert.showAndWait();
 					} else {
 						reservationModel.getReservations().add(r);
+						reservationModel.addReservation(r);
 						guestModel.getCurrentGuest().get().getReservations().add(r);
 						guestModel.updateGuest(guestModel.getCurrentGuest().get());
 					}
