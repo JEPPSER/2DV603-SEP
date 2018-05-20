@@ -65,7 +65,6 @@
       </HBox>
       <HBox spacing="10.0">
          <children>
-            <Button fx:id="deleteButton" mnemonicParsing="false" text="Delete" />
             <Button fx:id="okButton" mnemonicParsing="false" text="OK" />
          </children>
       </HBox>

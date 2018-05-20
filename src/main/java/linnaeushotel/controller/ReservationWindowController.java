@@ -91,8 +91,7 @@ public class ReservationWindowController implements LinnaeusHotelController {
 
 	@FXML
 	public void initialize() {
-//		initializeRoomModel(roomModel);
-
+		
 		// Initialization and onAction for the monthMenuButton.
 		String month = monthMenuButton.getItems().get(LocalDate.now().getMonthValue() - 1).getText();
 		monthMenuButton.setText(month);
@@ -488,6 +487,17 @@ public class ReservationWindowController implements LinnaeusHotelController {
 			throw new IllegalStateException("Model can only be initialize once");
 		}
 		this.reservationModel = reservationModel;
+		for(int i = 0; i < reservationModel.getReservations().size(); i++){
+			reservationModel.deleteReservation(reservationModel.getReservations().get(i));
+			reservationModel.getReservations().remove(i);
+		}
+		for(int i = 0; i < guestModel.getGuests().size(); i++){
+			for(int j = 0; j < guestModel.getGuests().get(i).getReservations().size(); j++){
+				Reservation r = guestModel.getGuests().get(i).getReservations().get(j);
+				reservationModel.getReservations().add(r);
+				reservationModel.addReservation(r);
+			}
+		}
 	}
 
 	public void initializeRoomModel(RoomModel roomModel) {

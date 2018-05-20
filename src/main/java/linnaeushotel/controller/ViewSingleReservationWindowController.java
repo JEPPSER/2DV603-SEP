@@ -27,7 +27,6 @@ public class ViewSingleReservationWindowController implements LinnaeusHotelContr
 	@FXML public TextField checkedInTextField;
 	@FXML public TextField priceTextField;
 	
-	@FXML public Button deleteButton;
 	@FXML public Button okButton;
 	
 	private ReservationModel reservationModel;
@@ -54,16 +53,8 @@ public class ViewSingleReservationWindowController implements LinnaeusHotelContr
 		checkedInTextField.setText(Boolean.toString(r.isCheckedIn()));
 		priceTextField.setText(String.valueOf(r.getPrice()));
 		
-		deleteButton.setOnAction(c -> {
-			reservationModel.getReservations().remove(r);
-			reservationModel.deleteReservation(r);
-			reservationModel.setCurrentReservation(null);
-			Stage stage = (Stage) deleteButton.getScene().getWindow();
-			stage.close();
-		});
-		
 		okButton.setOnAction(c -> {
-			Stage stage = (Stage) deleteButton.getScene().getWindow();
+			Stage stage = (Stage) okButton.getScene().getWindow();
 			stage.close();
 		});
 	}
